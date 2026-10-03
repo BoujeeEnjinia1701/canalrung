@@ -3,7 +3,7 @@ doc_id: CNR-PRC-001
 title: CanalRung design precis
 project: CanalRung
 doc_type: Precis
-version: "0.3"
+version: "0.4"
 status: Draft
 date: '2026-10-03'
 author: Amish Chadha
@@ -21,6 +21,10 @@ revisions:
   date: '2026-10-03'
   author: Amish Chadha
   change: "TRL 3: numbers from CNR-CAL-001; constructable design (CNR-DDR-002): rope-through-rung joint, bolted stand-offs, eye nut anchor with crush tube, box clamped by U-bolts, edge protectors, screw links"
+- version: "0.4"
+  date: '2026-10-03'
+  author: Amish Chadha
+  change: "Amish's requirement decisions of 2026-10-03 (CNR-DDR-003): 9 mm EN 1891 type B ropes; 500 x 1,200 mm footing and 2,300 mm post at every site; R2 restated to 4.5 kg"
 ---
 
 # CanalRung design precis
@@ -47,8 +51,8 @@ CanalRung is a bank station and a rope ladder. The station is a galvanised post 
 
 | # | Component | Role |
 | --- | --- | --- |
-| 1 | Post, galvanised 60 x 60 x 3 SHS, 2,100 long | Holds the box at a reachable height and carries the ladder anchor |
-| 2 | Concrete footing, 400 dia x 1,000 deep | Holds the post against the anchor load |
+| 1 | Post, galvanised 60 x 60 x 3 SHS, 2,300 long | Holds the box at a reachable height and carries the ladder anchor |
+| 2 | Concrete footing, 500 dia x 1,200 deep, at every site | Holds the post against the anchor load in drained or saturated bank soil |
 | 3 | Crush tube, 21.3 x 2.0, 57 long | Lets the anchor bolt be tightened without crushing the post |
 | 4, 5 | M16 grade 8.8 anchor bolt and forged M16 eye nut | The ladder anchor, 250 mm above ground, loaded in line with its thread |
 | 6, 7, 9 | Mounting plate, two square U-bolts, washers and nyloc nuts | Clamp the box to the post with no holes in the post |
@@ -58,7 +62,7 @@ CanalRung is a bank station and a rope ladder. The station is a galvanised post 
 | 14 | Float sleeves, closed-cell foam 50 OD (13) | Buoyancy and grip; high-visibility orange |
 | 15, 16 | Stand-off blocks, HDPE (8), and M5 bolts | Hold the ladder 95 mm off the wall at rungs 3, 6, 9 and 12 |
 | 17, 18 | Nylon rope bushes (26) and end caps (26) | Keep the rope off the aluminium hole edges; close the tube ends |
-| 19, 20 | Side ropes, 10.5 mm EN 1891 type A (2 x 8.0 m), knots and seizings | Carry the climbing load; a knot under and a seizing over each rung end |
+| 19, 20 | Side ropes, 9 mm EN 1891 type B (2 x 8.0 m), knots and seizings | Carry the climbing load; a knot under and a seizing over each rung end |
 | 21 | Screw links, 10 mm (2) | Top: ropes to the eye nut; bottom: ropes to the throw weight |
 | 22 | Soft throw weight, 0.5 kg steel shot pouch | Carries the bottom end down and into the water; cannot injure |
 | 23 | Edge protector sleeves (2) | Keep the ropes off the concrete edge of the coping |
@@ -82,22 +86,22 @@ All figures are from CNR-CAL-001 (`docs/04-calcs/sizing.py`), with the assumptio
 | Rung section | 4,020 mm, 13 rungs at 335 mm | [A1] |
 | Reach | Two rungs in the water on a 1.5:1 slope with water 2.0 m down; works to 2.1 m on that slope and to 3.8 m on a vertical wall | [A3] to [A5] |
 | Hand room and width | 70 mm behind the float sleeve at a stand-off; 298 mm clear between bushes | [A6] |
-| Ladder as thrown | 4.48 kg (target 4.0 kg) | [B3] |
-| Spare buoyancy | 0.27 kg per plain rung, 0.22 kg per stand-off rung; bottom three rungs carry the throw weight 1.73 times over | [C1], [C2] |
+| Ladder as thrown | 4.27 kg (target 4.5 kg, restated by Amish on 2026-10-03) | [B3] |
+| Spare buoyancy | 0.28 kg per plain rung, 0.22 kg per stand-off rung; bottom three rungs carry the throw weight 1.75 times over | [C1], [C2] |
 | Rung stress at 1.5 kN | 135 MPa, 0.56 of the 240 MPa minimum yield | [D1] |
-| Rope strength | 22.4 kN for both ropes, wet, with stopper knots; 5.0 times the 4.5 kN target | [E1] |
+| Rope strength | 18.4 kN for both 9 mm ropes, wet, with stopper knots; 4.08 times the 4.5 kN target | [E1] |
 | Anchor load in use | 1.47 kN for a 100 kg climber with a 1.5 dynamic factor; 2.32 kN upper bound with full current drag | [F1] to [F4] |
-| Anchor elements | Eye nut 1.53 times the target; post at 0.39 of yield; footing 1.92 times in drained soil, 0.85 in saturated soil (larger footing 1.59) | [G1] to [G5] |
+| Anchor elements | Eye nut 1.53 times the target; post at 0.39 of yield; standard 500 x 1,200 mm footing 3.58 times in drained soil and 1.59 in saturated soil | [G1] to [G5] |
 | Deploy time | About 15 s (estimate) | [H1] |
-| Cost | Value-engineering target: USD 500. Estimated cost of the constructable design: USD 543.60 (USD 43.60 over the target) | [I1] |
+| Cost | Value-engineering target: USD 500. Estimated cost of the constructable design: USD 605.20 (USD 105.20 over the target) | [I1] |
 
 ## Key design choices
 
 Every choice below was decided on 2026-10-03 under Amish's pre-approval of the batch ("I pre-approve the batch runs along with any recommendations you come up with"); the full reasoning is in CNR-DDR-001 and CNR-DDR-002.
 
 1. **A fixed station is the anchor.** The scaffold listed a ground stake, a post loop or a cross bar. A bystander cannot drive a stake that holds 4.5 kN in 30 s, so the post itself, set in concrete, carries the anchor, and the ladder top is linked to it before any emergency. A portable anchor is left for a later vehicle kit.
-2. **Strong rungs over light rungs.** 28.6 x 1.65 mm 6061-T6 tube keeps the rung at 0.56 of yield; the lighter 25.4 mm tube would save 0.20 kg but reach 0.73. Safety first; R2 is reported as not met.
-3. **Knots carry the rungs.** Each rope runs through a nylon bush in each rung end; an overhand stopper knot under the bush carries the load and a twine seizing over it stops the rung floating up. This is the classic rope ladder joint, needs no special tools and can be inspected by eye. EN 1891 type A rope is tested with knotted terminations (at least 15 kN with figure-eight knots), so its knotted strength is known.
+2. **Strong rungs over light rungs.** 28.6 x 1.65 mm 6061-T6 tube keeps the rung at 0.56 of yield; the lighter 25.4 mm tube would save 0.20 kg but reach 0.73. Safety first; the 4.0 kg mass target could not be met with these rungs, so Amish restated R2 to 4.5 kg on 2026-10-03 after the ropes were downsized to 9 mm (CNR-DDR-003).
+3. **Knots carry the rungs.** Each rope runs through a nylon bush in each rung end; an overhand stopper knot under the bush carries the load and a twine seizing over it stops the rung floating up. This is the classic rope ladder joint, needs no special tools and can be inspected by eye. The 9 mm EN 1891 type B rope is tested with knotted terminations (at least 12 kN with figure-eight knots), so its knotted strength is known.
 4. **Weighted and floating.** The soft weight sinks and the rungs float, which answers the scaffold's open question: the bottom end goes down and stays put while the lowest rungs sit at the surface.
 5. **Stand-offs on every third rung.** Four stand-off rungs keep the taut ladder off the wall along its length at a cost of 0.42 kg; more would add mass, fewer would let it lie on the concrete between them.
 6. **No throw line in the first prototype.** A second line adds tangling and an entanglement hazard for the person in the water; it can be tried after the throw trials.

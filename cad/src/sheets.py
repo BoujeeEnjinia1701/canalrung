@@ -1,4 +1,4 @@
-"""CanalRung general arrangement sheet CNR-DWG-001, Rev P2 (TRL 3; constructable design CNR-DDR-002).
+"""CanalRung general arrangement sheet CNR-DWG-001, Rev P3 (TRL 3; constructable design CNR-DDR-002).
 
 Run from the repo root:  python cad/src/sheets.py
 Writes cad/drawings/CNR-DWG-001.svg, .pdf and .png from cad/src/model.py with .kit/drawing.py.
@@ -44,10 +44,11 @@ def main():
     views = project_views(asm, work)
     bb = asm.bounding_box()
     s = Sheet(project="CanalRung", title="Throwable canal ladder and bank station: general arrangement",
-              dwg_no="CNR-DWG-001", rev="P2", author="Amish Chadha", date=DATE, scale=1 / 50, theme="technical", concept="PRELIMINARY, NOT FOR FABRICATION",
+              dwg_no="CNR-DWG-001", rev="P3", author="Amish Chadha", date=DATE, scale=1 / 50, theme="technical", concept="PRELIMINARY, NOT FOR FABRICATION",
               material="Steel post, aluminium rungs, kernmantle rope; see bom/bom.csv. PRELIMINARY, NOT FOR FABRICATION",
               revisions=[("P1", "Preliminary GA for TRL 3 (from cad/src/model.py)", DATE_P1, "AC"),
-                         ("P2", "CNR-DDR-002: design for construction", DATE, "AC")])
+                         ("P2", "CNR-DDR-002: design for construction", DATE, "AC"),
+                         ("P3", "CNR-DDR-003: 9 mm ropes; 500 x 1,200 footing standard", DATE, "AC")])
     s.add_ortho(views)
     k = s.scale
     c = cells(s, views, k)
@@ -67,21 +68,21 @@ def main():
     L.append(_t(X(-1200), Z(-1500), "1.5:1 LINED WALL (SITE)", 1.9, 400, MUTED, "middle"))
     L.append(_t(X(420), Z(-700), f"EYE NUT (5), {P['eye_z']:.0f} ABOVE GROUND", 1.9, 400, INK, "middle"))
     L.append(_t(X(-2000), Z(200), "13 RUNGS AT 335 PITCH (13)", 1.9, 400, INK, "middle"))
-    L.append(_t(X(P["post_x"]), Z(-P["footing_depth"]) + 4, "FOOTING 400 DIA (2)", 1.9, 400, INK, "middle"))
+    L.append(_t(X(P["post_x"]), Z(-P["footing_depth"]) + 4, f"FOOTING {P['footing_d']:.0f} DIA (2)", 1.9, 400, INK, "middle"))
 
     s._layers += L
     s.add_svg(views["iso"], 276, 36, 140, 84, label="Isometric view",
               sublabel="Not to scale; seen from the bank side, front right and above; grey wall is the site")
     m = M.masses()
     s.add_notes("Main dimensions and interfaces (mm)", [
-        f"Post 60 x 60 x 3 SHS x {P['post_len']:,.0f}; {P['post_embed']:.0f} in a {P['footing_d']:.0f} x {P['footing_depth']:,.0f} footing",
+        f"Post 60 x 60 x 3 SHS x {P['post_len']:,.0f}; {P['post_embed']:,.0f} in a {P['footing_d']:.0f} x {P['footing_depth']:,.0f} footing",
         f"Post centre {P['post_x']:,.0f} back from the coping; top {ztop:,.0f} above ground",
         f"Anchor: M16 forged eye nut on an M16 x 90 bolt, {P['eye_z']:.0f} above ground",
         f"Box about {P['box'][0]:.0f} x {P['box'][1]:.0f} x {P['box'][2]:.0f}, base {P['box_z0']:.0f} up; 2 square U-bolts M8",
         f"Ladder: {P['n_rungs']} rungs, {P['pitch']:.0f} pitch, ropes {P['rope_pitch']:.0f} apart; section {D['span']:,.0f}",
         f"Rung 28.6 x 1.65 Al tube x {P['rung_len']:.0f}; foam float sleeve 50 OD",
         f"Stand-offs on rungs 3, 6, 9, 12: rung axis {P['so_depth']:.0f} off the wall",
-        f"Ropes 10.5 kernmantle, about 8.0 m each; knot under every rung end",
+        f"Ropes {P['rope_d']:.0f} kernmantle, about 8.0 m each; knot under every rung end",
         f"Ladder as thrown about {m['total']:.1f} kg; soft 0.5 kg throw weight",
         "Small parts (bushes, caps, knots, seizings): DWG-106, 109",
         "Third-angle; front view from -Y; canal along Y; (n) = BOM line",

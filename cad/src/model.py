@@ -11,7 +11,7 @@ The model has two parts:
     cap, decals and a rescue knife;
   * the ladder: 13 aluminium tube rungs at 335 mm pitch with closed-cell foam float sleeves,
     nylon rope bushes and plastic end caps, HDPE wall stand-off blocks on rungs 3, 6, 9 and 12,
-    two 10.5 mm low-stretch kernmantle side ropes with an overhand stopper knot under every
+    two 9 mm low-stretch kernmantle side ropes (EN 1891 type B) with an overhand stopper knot under every
     rung end and a seizing above it, screw links at the top and bottom, a soft throw weight
     and two edge protector sleeves.
 
@@ -40,7 +40,7 @@ PARAMS = dict(
     n_rungs=13, pitch=335.0, rope_pitch=320.0,          # rope centre to rope centre across the ladder
     rung_len=360.0, rung_od=28.6, rung_wall=1.65,       # 6061-T6, 1-1/8 in x 0.065 in
     bush_id=12.0, bush_od=16.0, bush_len=29.0, flange_od=22.0, flange_t=2.0,
-    rope_d=10.5, knot_r=13.0, seize_len=20.0, seize_t=1.5,
+    rope_d=9.0, knot_r=11.5, seize_len=20.0, seize_t=1.5,
     foam_od=50.0, foam_len=294.0, foam_len_so=260.0,
     so_rungs=(3, 6, 9, 12), so_t=16.0, so_back=20.0, so_depth=95.0, so_h=40.0, so_nose_h=24.0, so_bolt_x=140.0,
     cap_head=2.0, cap_shank=10.0,
@@ -49,8 +49,8 @@ PARAMS = dict(
     link_major=20.0, link_wire=5.0,
     # site and station
     slope_h=1.5, water_drop=2000.0, water_depth=1000.0, rung1_s=150.0,
-    post_x=1000.0, post_w=60.0, post_t=3.0, post_len=2100.0, post_embed=900.0,
-    footing_d=400.0, footing_depth=1000.0,
+    post_x=1000.0, post_w=60.0, post_t=3.0, post_len=2300.0, post_embed=1100.0,
+    footing_d=500.0, footing_depth=1200.0,                # standard at every site (Amish, 2026-10-03, 9A)
     eye_z=250.0, bolt_d=16.0, bolt_len=90.0, crush_od=21.3, crush_t=2.0,
     plate=(4.0, 400.0, 300.0), plate_z0=480.0,
     ubolt_d=8.0, ubolt_z=(560.0, 720.0), ubolt_leg=84.0,
@@ -59,12 +59,12 @@ PARAMS = dict(
 
 DENSITY = {"al": 2.70e-6, "steel": 7.85e-6, "hdpe": 0.95e-6, "nylon": 1.14e-6, "xlpe": 0.033e-6,
            "pp": 0.91e-6, "concrete": 2.3e-6}   # kg per mm3
-ROPE_KG_M = 0.068      # 10.5 mm EN 1891 type A kernmantle, typical catalogue mass per metre
+ROPE_KG_M = 0.055      # 9 mm EN 1891 type B low-stretch kernmantle, typical catalogue mass per metre (50 to 56 g/m)
 
 # BOM line numbers follow the build order (bom/bom.csv)
 BOM = {
-    "post": (1, "Post, galvanised steel 60 x 60 x 3 SHS, 2,100 long"),
-    "footing": (2, "Concrete footing, 400 dia x 1,000 deep"),
+    "post": (1, "Post, galvanised steel 60 x 60 x 3 SHS, 2,300 long"),
+    "footing": (2, "Concrete footing, 500 dia x 1,200 deep"),
     "crush": (3, "Crush tube, steel 21.3 x 2.0, 57 long"),
     "bolt": (4, "Anchor bolt M16 x 90, grade 8.8, washers"),
     "eyenut": (5, "Forged eye nut M16 (ladder anchor)"),
@@ -81,7 +81,7 @@ BOM = {
     "sobolts": (16, "Stand-off bolts M5 x 50 (8)"),
     "bushes": (17, "Rope bushes, nylon, flanged (26)"),
     "caps": (18, "Rung end caps (26)"),
-    "ropes": (19, "Side ropes, 10.5 mm kernmantle, with knots (2)"),
+    "ropes": (19, "Side ropes, 9 mm kernmantle, with knots (2)"),
     "seizings": (20, "Seizings above each rung end (26)"),
     "links": (21, "Screw links, 10 mm (2)"),
     "weight": (22, "Soft throw weight, 0.5 kg"),
@@ -569,6 +569,9 @@ def _pairs(P=PARAMS):
             out.append((f"rung {k} tube", rung_tube(k, P), f"end cap {k}{'LR'[s > 0]}", end_cap(k, s, P), "touch", 0.2))
             out.append((f"rope {'LR'[s > 0]}", cyl_z(knot_z(k, P), D["zs"][k - 1] + 60, P["rope_d"] / 2, x=s * P["rope_pitch"] / 2),
                         f"rung {k} tube", rung_tube(k, P), "clear", 2.0))
+            # the 9 mm rope runs freely through the 12 mm bush bore (2026-10-03, decision 4A)
+            out.append((f"rope {'LR'[s > 0]} at rung {k}", cyl_z(knot_z(k, P) + P["knot_r"], D["zs"][k - 1] + 60, P["rope_d"] / 2,
+                        x=s * P["rope_pitch"] / 2), f"bush {k}{'LR'[s > 0]}", bush(k, s, P), "clear", 1.0))
             out.append((f"end cap {k}{'LR'[s > 0]}", end_cap(k, s, P), f"bush {k}{'LR'[s > 0]}", bush(k, s, P), "clear", 1.0))
             out.append((f"foam {k}", foam(k, P), f"bush {k}{'LR'[s > 0]}", bush(k, s, P), "clear", 1.0))
         out.append((f"rung {k} tube", rung_tube(k, P), f"foam {k}", foam(k, P), "touch", 0.2))

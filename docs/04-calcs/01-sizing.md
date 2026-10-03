@@ -3,7 +3,7 @@ doc_id: CNR-CAL-001
 title: CanalRung sizing calculations
 project: CanalRung
 doc_type: Calculation
-version: "0.2"
+version: "0.3"
 status: Draft
 date: '2026-10-03'
 author: Amish Chadha
@@ -17,11 +17,15 @@ revisions:
   date: '2026-10-03'
   author: Amish Chadha
   change: "Design for construction (CNR-DDR-002) applied: rope-through-rung joint, stand-off blocks, crush tube, rope cut length and mass, cost by build-order BOM"
+- version: "0.3"
+  date: '2026-10-03'
+  author: Amish Chadha
+  change: "Amish's requirement decisions of 2026-10-03 (4A, 9A; CNR-DDR-003): 9 mm EN 1891 type B ropes (E1, B1 to B3, C1 to C3); R2 measured against the restated 4.5 kg; the 500 x 1,200 mm footing standard at every site (G4 to G6); cost recomputed (I1, I2)"
 ---
 
 # CanalRung sizing calculations
 
-On paper the constructable CanalRung meets eight of its ten requirements, misses one and is over its value-engineering target on another. The 4,020 mm rung section puts two rungs in the water on the design slope (1.5:1, water 2.0 m below the coping) and four on a 3.0 m vertical wall. Every rung floats with 0.22 to 0.27 kg to spare and the bottom three carry the soft throw weight 1.73 times over. A rung under a 1.5 kN point load reaches 0.56 of yield, and the two ropes with their stopper knots hold 22.4 kN wet, five times the 4.5 kN target. The anchor holds 4.5 kN with factors of 1.53 (eye nut) and 1.92 (footing in drained soil); a saturated bank needs a larger footing. The ladder as thrown weighs 4.48 kg against a 4.0 kg target (R2 not met), and the parts cost USD 543.60 against the USD 500 value-engineering target. Every number below is printed by `docs/04-calcs/sizing.py`; the tag in brackets, for example [C2], is the line of that script's output that carries it.
+On paper the constructable CanalRung meets nine of its ten requirements and is over its value-engineering target on the tenth. The 4,020 mm rung section puts two rungs in the water on the design slope (1.5:1, water 2.0 m below the coping) and four on a 3.0 m vertical wall. Every rung floats with 0.22 to 0.28 kg to spare and the bottom three carry the soft throw weight 1.75 times over. A rung under a 1.5 kN point load reaches 0.56 of yield, and the two 9 mm ropes with their stopper knots hold 18.4 kN wet, 4.08 times the 4.5 kN target. The anchor holds 4.5 kN with factors of 1.53 (eye nut) and, for the 500 x 1,200 mm footing now standard at every site, 3.58 in drained soil and 1.59 in saturated soil. The ladder as thrown weighs 4.27 kg against the 4.5 kg target Amish restated on 2026-10-03 (R2 met on mass), and the parts cost USD 605.20 against the USD 500 value-engineering target. Every number below is printed by `docs/04-calcs/sizing.py`; the tag in brackets, for example [C2], is the line of that script's output that carries it.
 
 > **Safety:** These are first-principles estimates for a paper proof of concept. They do not show that the ladder, its knots or the anchor are safe to use. Rope, knot, rung and anchor strengths must be proof-loaded (CalRig, TRL 4) and the climb, throw and deployment tried in a supervised test tank before any station is placed at a canal. Never enter the water to rescue someone. See CNR-PRC-001, Safety.
 
@@ -39,7 +43,7 @@ The design case is the station 1,000 mm back from the coping of a concrete-lined
 | --- | --- | --- |
 | Climber | 100 kg, clothed and wet; dynamic factor 1.5 for grabbing and climbing (1.47 kN) | Screening value for a heavy adult |
 | Rung | 6061-T6 drawn tube, 240 MPa minimum yield; load as a point at mid-span between the ropes (320 mm), simply supported | Conservative: hands and feet usually load nearer the ends |
-| Rope | EN 1891 type A, minimum breaking strength 22 kN; overhand stopper knot keeps 60 % (literature 55 to 65 %); wet 85 %; over a 10 mm unprotected edge 50 % | Typical published values; to be proof-loaded |
+| Rope | 9 mm EN 1891 type B, minimum breaking strength 18 kN, about 55 g/m; overhand stopper knot keeps 60 % (literature 55 to 65 %); wet 85 %; over a 10 mm unprotected edge 50 % | Typical published values; to be proof-loaded |
 | Buoyancy | Fresh water 1,000 kg/m3; foam 33 kg/m3 closed cell; aluminium 2,700, nylon 1,140, HDPE 950, polyester 1,380 kg/m3; tube bore floods through the rope holes; rope share per rung includes 100 mm in each knot | Handbook densities |
 | Current | 2.0 m/s surface current; person holding a rung, drag area 0.35 m2; rung drag coefficient 1.2 | Screening values |
 | Anchor | Eye nut working load limit 700 kg in line with the thread (DIN 582 class, M16); 10 mm screw link 1,000 kg; M16 grade 8.8 proof 600 MPa on 157 mm2 | Catalogue classes; the bought parts must be marked |
@@ -65,18 +69,18 @@ The clear width between the rope bushes is 298 mm, the pitch 335 mm, and at each
 | End caps (26) | 0.104 |
 | Stand-off blocks (8) | 0.420 |
 | Stand-off bolts (8) | 0.080 |
-| Side ropes, 2 x 7.95 m at 68 g/m [B1] | 1.081 |
+| Side ropes, 9 mm, 2 x 7.95 m at 55 g/m [B1] | 0.874 |
 | Seizings | 0.020 |
 | Screw links (2) | 0.120 |
 | Throw weight with pouch | 0.530 |
 | Edge protectors (2) | 0.160 |
-| **Total** | **4.48** |
+| **Total** | **4.27** |
 
-The ladder as thrown weighs 4.48 kg, 0.48 kg over the 4.0 kg target of R2 [B3]. **R2 is not met.** Rungs of 25.4 x 1.65 mm tube would save 0.20 kg [B4] but would take the rung past the stress limit (D2), so they were rejected. Savings worth trying at TRL 4 are listed in the design decisions register.
+The ladder as thrown weighs 4.27 kg, 0.23 kg inside the 4.5 kg target of R2 [B3]. The 9 mm ropes save 0.21 kg against the 10.5 mm ropes they replace, which was not enough to reach the earlier 4.0 kg (still 0.27 kg over), so R2 was restated to 4.5 kg under Amish's fallback in decision 4A (CNR-DDR-003). **R2 is met on paper on mass**; throw accuracy needs trials. Rungs of 25.4 x 1.65 mm tube would save 0.20 kg [B4] but would take the rung past the stress limit (D2), so they were rejected.
 
 ## C. Buoyancy (R3)
 
-A plain rung with its share of rope floats with 0.274 kg to spare and a stand-off rung with 0.218 kg, both above the 0.15 kg target [C1]. In water the throw weight weighs 0.442 kg; rungs 11, 12 and 13 together lift 0.765 kg, a factor of 1.73 against the 1.5 target [C2], so the weight hangs below the floating rungs instead of pulling them under. The whole ladder in water has 2.89 kg of spare lift [C3]. **R3 is met on paper.** The tube bore is not counted: it floods through the rope holes.
+A plain rung with its share of rope floats with 0.277 kg to spare and a stand-off rung with 0.221 kg, both above the 0.15 kg target [C1]. In water the throw weight weighs 0.442 kg; rungs 11, 12 and 13 together lift 0.775 kg, a factor of 1.75 against the 1.5 target [C2], so the weight hangs below the floating rungs instead of pulling them under. The whole ladder in water has 2.93 kg of spare lift [C3]. The lighter rope gives slightly more spare lift than before. **R3 is met on paper.** The tube bore is not counted: it floods through the rope holes.
 
 ## D. Rung strength (R4)
 
@@ -86,7 +90,7 @@ Each rung end passes 750 N through the bush flange onto the knot; the nylon flan
 
 ## E. Ropes, knots and links (R4)
 
-One side rope with a stopper knot, wet, holds 22 x 0.6 x 0.85 = 11.2 kN; both ropes 22.4 kN, 5.0 times the 4.5 kN target and over the 18 kN that R4 asks for [E1]. If a rope were pulled over an unprotected 10 mm coping edge as well, both ropes would still hold 11.2 kN [E2]; the edge protectors are there to keep the rope off that edge. The 10 mm screw links have a working load limit of 9.8 kN, 2.18 times the target [E3]. **R4 is met on paper.**
+One 9 mm side rope with a stopper knot, wet, holds 18 x 0.6 x 0.85 = 9.18 kN; both ropes 18.4 kN, 4.08 times the 4.5 kN target [E1]. That is over the 18 kN (four times) that R4 asks for, and well over the floor of three times (13.5 kN) that Amish set for the smaller rope in decision 4A. The margin over R4 is thin, so the bought rope must carry a declared breaking strength of at least 18 kN and the proof load at TRL 4 must include knotted, wet rope. If a rope were pulled over an unprotected 10 mm coping edge as well, both ropes would still hold 9.2 kN [E2]; the edge protectors are there to keep the rope off that edge. The 10 mm screw links have a working load limit of 9.8 kN, 2.18 times the target [E3]. **R4 is met on paper.**
 
 ## F. Loads in use
 
@@ -102,11 +106,11 @@ The design climber with the dynamic factor loads the ladder with 1.47 kN [F1]. O
 | M16 grade 8.8 bolt | 94 kN proof load | 21 | [G2] |
 | Post wall under the 50 mm washer | 66 kN punching | 15 | [G2] |
 | Post, 60 x 60 x 3 at 250 mm | 91 MPa, 0.39 of yield | 2.6 | [G3] |
-| Footing 400 x 1,000, drained soil | 8.6 kN ultimate | 1.92 | [G4] |
-| Same footing, saturated soil | 3.8 kN ultimate | 0.85 | [G5] |
-| Footing 500 x 1,200, saturated soil | 7.2 kN ultimate | 1.59 | [G5] |
+| Standard footing 500 x 1,200, drained soil | 16.1 kN ultimate | 3.58 | [G4] |
+| Standard footing 500 x 1,200, saturated soil | 7.2 kN ultimate | 1.59 | [G5] |
+| Earlier footing 400 x 1,000, saturated soil (for comparison) | 3.8 kN ultimate | 0.85 | [G5] |
 
-The standard footing takes about 0.12 m3 of concrete, about 12 bags of 25 kg [G6]. **R6 is met on paper in drained soil.** On a saturated or soft bank the standard footing is not enough and the 500 x 1,200 mm footing (with a 2,300 mm post) is used; the soil is a fact to confirm at each site.
+Since Amish's decision 9A of 2026-10-03 the 500 x 1,200 mm footing, with a 2,300 mm post set 1,100 mm into it, is the standard footing at every site. It takes about 0.23 m3 of concrete, about 22 bags of 25 kg [G6]. **R6 is met on paper in drained and in saturated granular soil.** Soft clay or peat banks are outside these screening values and need a site pull test.
 
 ## H. Deployment, storage and safety (R7, R8, R10)
 
@@ -114,7 +118,7 @@ Lifting the lid (2 s), taking the throw weight and the top of the folded ladder 
 
 ## I. Cost (R9)
 
-Value-engineering target: USD 500. Estimated cost of the constructable design: USD 543.60 (USD 43.60 over the target) [I1]. The station (post, footing, anchor, box, decals, knife and consumables) is USD 286.20 and the ladder USD 257.40 [I2].
+Value-engineering target: USD 500. Estimated cost of the constructable design: USD 605.20 (USD 105.20 over the target) [I1]. The station (post, footing, anchor, box, decals, knife and consumables) is USD 358.80 and the ladder USD 246.40 [I2]. Against the previous estimate, the larger standard footing adds USD 65.00 (22 bags instead of 12 at USD 6.50), the longer post USD 4.60, and the 9 mm ropes save USD 8.00.
 
 ## Results against the requirements
 
@@ -123,12 +127,12 @@ Value-engineering target: USD 500. Estimated cost of the constructable design: U
 | ID | Status | Figures |
 | --- | --- | --- |
 | R1 | Met on paper | 4,020 mm rung section; 1.5:1 slopes to 2.1 m, vertical walls to 3.8 m |
-| R2 | **Not met (mass)**; throw accuracy needs trials | 4.48 kg against 4.0 kg |
-| R3 | Met on paper | 0.27 and 0.22 kg per rung; bottom three rungs 1.7 times the weight |
-| R4 | Met on paper | Rung 0.56 of yield; ropes 22.4 kN wet with knots |
+| R2 | Met on paper on mass (restated 2026-10-03); throw accuracy needs trials | 4.27 kg against 4.5 kg |
+| R3 | Met on paper | 0.28 and 0.22 kg per rung; bottom three rungs 1.75 times the weight |
+| R4 | Met on paper | Rung 0.56 of yield; ropes 18.4 kN wet with knots (4.08 times 4.5 kN) |
 | R5 | Met by design; climb time needs trials | 298 mm clear, 335 mm pitch, 70 mm hand room |
-| R6 | Met on paper in drained soil | Footing 1.92; eye nut 1.53; saturated soil needs the larger footing |
+| R6 | Met on paper in drained and saturated soil | Standard footing 3.58 drained, 1.59 saturated; eye nut 1.53 |
 | R7 | Not verifiable at TRL 3 | Estimate 15 s |
 | R8 | Met by design; to confirm by test | Stored in an opaque box |
-| R9 | Over the value-engineering target | USD 543.60 against USD 500 |
+| R9 | Over the value-engineering target | USD 605.20 against USD 500 |
 | R10 | Met by design | Soft weight, capped ends, knife |

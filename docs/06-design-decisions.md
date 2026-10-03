@@ -3,7 +3,7 @@ doc_id: CNR-DEC-001
 title: CanalRung design decisions register
 project: CanalRung
 doc_type: Design decisions register
-version: "0.1"
+version: "0.2"
 status: Draft
 date: '2026-10-03'
 author: Amish Chadha
@@ -13,6 +13,10 @@ revisions:
   date: '2026-10-03'
   author: Amish Chadha
   change: "Register opened at TRL 3; every decision made under Amish's 2026-10-03 pre-approval"
+- version: "0.2"
+  date: '2026-10-03'
+  author: Amish Chadha
+  change: "Amish's requirement decisions 4A and 9A of 2026-10-03 recorded (CNR-DDR-003): 9 mm ropes with R2 restated to 4.5 kg; the 500 x 1,200 mm footing standard at every site"
 ---
 
 # CanalRung design decisions register
@@ -23,7 +27,7 @@ Every design decision still to be made, and every decision made, in one place. E
 
 ## Open decisions
 
-None. All decisions were made under Amish's 2026-10-03 pre-approval.
+None. All decisions were made under Amish's 2026-10-03 pre-approval, and requirement decisions 4A and 9A were decided by Amish on 2026-10-03 (below).
 
 ## To confirm when parts are bought
 
@@ -32,23 +36,23 @@ None. All decisions were made under Amish's 2026-10-03 pre-approval.
 | 1 | The storage box takes a 370 mm rung across its inside depth (about 440 mm), and its back wall is flat where the plate sits | The folded ladder and the U-bolt clamp depend on it; choose a different box if not | CNR-DDR-002, P6 |
 | 2 | The eye nut is forged and marked with a working load limit of at least 700 kg in line with its thread | The anchor factor of 1.53 rests on it | CNR-CAL-001, G1 |
 | 3 | The screw links are marked with a working load limit of at least 1,000 kg and are long enough (about 60 mm inside) to pass round the eye nut's ring with both rope loops in | The top joint needs room for the ring and two loops | CNR-DDR-002, P7 |
-| 4 | The rope is EN 1891 type A, 10.5 mm, with a declared breaking strength of at least 22 kN; polyester if available | The rope strength of 22.4 kN wet with knots rests on it | CNR-CAL-001, E1 |
+| 4 | The rope is EN 1891 type B, 9 mm, with a declared breaking strength of at least 18 kN and about 55 g/m; polyester if available | The rope strength of 18.4 kN wet with knots (4.08 times 4.5 kN, R4) and the 4.27 kg ladder mass rest on it | CNR-CAL-001, E1 and B1; CNR-DDR-003 |
 | 5 | The foam tube is closed-cell (a cut end takes up no water) and grips 28.6 mm tube | Buoyancy and the sleeve's fit | CNR-CAL-001, C1 |
-| 6 | The nylon bushes are 12 mm bore, 16 mm outside, with a 22 mm flange, and the 10.5 mm rope passes freely | The rope and knot seat | CNR-DDR-002, P1 |
-| 7 | The bank soil at the first site: drained and medium dense, or wet or soft | Sets the standard footing or the 500 x 1,200 mm footing | CNR-CAL-001, G4 and G5 |
+| 6 | The nylon bushes are 12 mm bore, 16 mm outside, with a 22 mm flange, and the 9 mm rope passes freely while its overhand knot cannot pull through | The rope and knot seat | CNR-DDR-002, P1 |
+| 7 | The bank soil at the first site is granular (sand or gravel), drained or saturated, and not soft clay or peat | The standard 500 x 1,200 mm footing is checked for granular soil only; clay or peat needs a site pull test | CNR-CAL-001, G4 and G5; CNR-DDR-003 |
 | 8 | The Rapid Rung patent number, read before public release | Confirms the no-elastic-stowing design-around | CNR-PRC-001 |
 
 ## Value engineering
 
-Value-engineering target: USD 500 (a hypothetical control target, not a limit). Estimated cost of the constructable design: USD 543.60 (USD 43.60 over the target). Main cost drivers and savings worth trying:
+Value-engineering target: USD 500 (a hypothetical control target, not a limit). Estimated cost of the constructable design: USD 605.20 (USD 105.20 over the target). Main cost drivers and savings worth trying:
 
-- The station costs USD 286.20 and the ladder USD 257.40. The largest lines are the concrete footing (USD 78), the 13 aluminium rungs (USD 72.80), the post (USD 48), the storage box (USD 45), the ropes (USD 40) and the edge protectors (USD 30).
-- Savings worth trying: buying rope by the 50 m reel for several stations; a post and footing shared with an existing district marker post or fence line; sewn canvas edge protectors instead of bought ones; rungs cut from 6 m tube lengths.
-- Mass (R2, 4.48 kg against 4.0 kg) is the other value-engineering gap. Worth trying at TRL 4: ropes of 10 mm instead of 10.5 mm (about 0.08 kg), stand-off blocks with a lightening hole (about 0.10 kg), a 0.4 kg throw weight if the throw trials allow (0.10 kg). Lighter rungs were rejected on strength (CNR-DDR-001, D3).
+- The station costs USD 358.80 and the ladder USD 246.40. The largest lines are the concrete footing (USD 143, the 500 x 1,200 mm footing now standard at every site), the 13 aluminium rungs (USD 72.80), the post (USD 52.60), the storage box (USD 45), the ropes (USD 32) and the edge protectors (USD 30).
+- Savings worth trying: ready-mix delivered for several stations at once instead of bagged premix; buying rope by the 50 m reel; a post and footing shared with an existing district marker post or fence line; sewn canvas edge protectors instead of bought ones; rungs cut from 6 m tube lengths.
+- Mass: the ladder as thrown is 4.27 kg, inside the 4.5 kg of R2 as restated on 2026-10-03. Worth trying at TRL 4 if the throw trials ask for less: stand-off blocks with a lightening hole (about 0.10 kg), a 0.4 kg throw weight (0.10 kg). Lighter rungs were rejected on strength (CNR-DDR-001, D3), and ropes below 9 mm would fall under Amish's three-times floor (CNR-DDR-003).
 
 ## Decisions made
 
-All decided by Amish under his pre-approval of 2026-10-03: "start with the first 14 repos from the list of 29 projects. I pre-approve the batch runs along with any recommendations you come up with. I also accept any cost overruns or variations from the assumed scope cost."
+Decided by Amish under his pre-approval of 2026-10-03, except the last two rows, which he decided directly on 2026-10-03: "start with the first 14 repos from the list of 29 projects. I pre-approve the batch runs along with any recommendations you come up with. I also accept any cost overruns or variations from the assumed scope cost."
 
 | Date | Decision | Decided by | Record |
 | --- | --- | --- | --- |
@@ -67,3 +71,5 @@ All decided by Amish under his pre-approval of 2026-10-03: "start with the first
 | 2026-10-03 | Design for construction: rope-through-rung joint with bushes, knots and seizings; bolted stand-off blocks; foam sleeve lengths; end caps; eye nut with crush tube; box on a plate with U-bolts; rope notch and drain holes; screw links; edge protectors; footing sizes | Amish, pre-approval quoted above | CNR-DDR-002 |
 | 2026-10-03 | Saturated or soft banks get a 500 x 1,200 mm footing and a 2,300 mm post (conservative; a site pull test could relax it) | Amish, pre-approval quoted above | CNR-DDR-002, P11 |
 | 2026-10-03 | Appearance model and render scenes as modelled, with no appearance deviations from the model | Amish, pre-approval quoted above | `docs/REVIEW.md` |
+| 2026-10-03 | R2 (4A): side ropes downsized to 9 mm EN 1891 type B (18.4 kN wet with knots, 4.08 times 4.5 kN, above the three-times floor); stronger rungs kept; the ladder still exceeds 4.0 kg (4.27 kg), so R2 restated to 4.5 kg. Supersedes the 10.5 mm rope of D4 and the "R2 not met" of D10 | Amish, 2026-10-03: "1A 2A 3A 4A 5A 6A 7A 8A 9A 10A 11A" | CNR-DDR-003 |
+| 2026-10-03 | R6 (9A): the 500 x 1,200 mm footing with a 2,300 mm post is the standard footing at every site (factor 3.58 drained, 1.59 saturated); R6 restated for drained or saturated soil. Supersedes the two footing sizes of P11 | Amish, 2026-10-03: "1A 2A 3A 4A 5A 6A 7A 8A 9A 10A 11A" | CNR-DDR-003 |

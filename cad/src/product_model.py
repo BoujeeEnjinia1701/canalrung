@@ -1,4 +1,4 @@
-"""CanalRung product appearance model (build123d), TRL 3, constructable design (CNR-DDR-002).
+"""CanalRung product appearance model (build123d), TRL 3, constructable design (CNR-DDR-002, CNR-DDR-003).
 
 Finished-product look for photoreal renders, built from cad/src/model.py: every component of
 model.components() is used as it is (post, footing, crush tube, anchor bolt and eye nut, mounting
@@ -53,7 +53,7 @@ MATERIAL = {"post": "metal", "crush": "metal", "footing": "paper", "bolt": "meta
             "caps": "plastic", "foam": "rubber", "blocks": "plastic", "sobolts": "metal", "ropes": "fabric",
             "seizings": "fabric", "links": "metal", "weight": "fabric", "protectors": "fabric", "decals": "paper",
             "knife": "plastic"}
-EXPLODE = {"crush": (0, -260, 0), "footing": (0, 0, -650), "bolt": (320, 0, 0), "eyenut": (-260, 0, -120),
+EXPLODE = {"crush": (0, -260, 0), "footing": (0, 0, -850), "bolt": (320, 0, 0), "eyenut": (-260, 0, -120),
            "plate": (-180, 0, 0), "ubolts": (300, 0, 120), "box": (-520, 0, 420), "boxfix": (-330, 0, 200),
            "cap": (0, 0, 300), "decals": (-600, 0, 560), "knife": (-520, 0, 900), "protectors": (0, 0, 450)}
 LADDER = ("rungs", "foam", "blocks", "sobolts", "bushes", "caps", "ropes", "seizings", "links", "weight", "protectors")

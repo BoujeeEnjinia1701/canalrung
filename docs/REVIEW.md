@@ -118,3 +118,40 @@ D1 to D14 of CNR-DDR-001, all dated 2026-10-03 and decided by Amish under the qu
 ## 2026-10-03: photoreal renders
 
 Rendered with Blender Cycles on Amish's Mac from `cad/src/product_model.py`; captioned with `.kit/photo_caption.py`; `media/card.png` and `media/social-preview.png` made with `.kit/cards.py`. Views: hero, exploded, detail. image_qc passes and `render.py --check` has no FAIL.
+
+## 2026-10-03: Amish's requirement decisions carried out
+
+Amish chose option A on every requirement decision put to him on 2026-10-03: "1A 2A 3A 4A 5A 6A 7A 8A 9A 10A 11A". For CanalRung that is 4A (R2) and 9A (R6). Recorded in CNR-DDR-003 (`docs/decisions/0003-lighter-ropes-and-standard-footing.md`) and in the register CNR-DEC-001 v0.2.
+
+### Changes made
+
+- **4A, ropes (R2):** side ropes downsized from 10.5 mm EN 1891 type A to 9 mm EN 1891 type B (at least 18 kN declared, about 55 g/m); stronger rungs kept. Model `rope_d` 9.0 and knot 23 mm across; 26 new checks that the rope runs at least 1 mm clear of every bush bore. The ladder still exceeds 4.0 kg, so R2 is restated to 4.5 kg (Amish's fallback in 4A).
+- **9A, footing (R6):** the 500 x 1,200 mm footing with a 2,300 mm post (1,100 mm in the concrete, bolt holes 1,350 mm from the bottom end) is the standard at every site; R6 restated for drained or saturated granular soil.
+- Files: `cad/src/model.py` (271 of 271 checks pass; STEP and STL regenerated), `bom/bom.csv` (lines 1, 2 and 19 repriced; line 4's unquoted note fixed), CNR-CAL-001 v0.3 and `results.csv`, CNR-REQ-001 v0.4, CNR-PRC-001 v0.4, CNR-BLD-001 v0.2, CNR-DEC-001 v0.2, README, `project.yaml` (evidence).
+- Pictures: general arrangement CNR-DWG-001 Rev P3; concept blueprint Rev P2, `media/hero.png`, `media/exploded.png`, `media/model.glb`; making sketches CNR-DWG-101 (post), 103 (footing) and 109 (rope); build plan overview, joints and steps regenerated (joint 1 and steps 1 and 2 show the new footing; rope pictures show the 9 mm rope).
+- Appearance model `cad/src/product_model.py`: takes the new rope and footing from the model; exploded footing offset moved to suit the deeper footing. Render scenes re-exported to `/home/claude/renders/canalrung` (hero, exploded, detail). The photoreal renders on Amish's Mac need re-running to show the change.
+
+### New results
+
+| Requirement | Target | Before | After |
+| --- | --- | --- | --- |
+| R2, mass | At most 4.5 kg (restated from 4.0 kg) | 4.48 kg, not met | 4.27 kg, met on paper |
+| R3, buoyancy | At least 0.15 kg per rung; weight factor at least 1.5 | 0.27 and 0.22 kg; 1.73 | 0.28 and 0.22 kg; 1.75 |
+| R4, ropes | Wet with knots at least 4 times 4.5 kN (18 kN); Amish's floor 3 times | 22.4 kN, 5.0 times | 18.4 kN, 4.08 times |
+| R6, footing | At least 1.5, drained or saturated soil | 1.92 drained, 0.85 saturated | 3.58 drained, 1.59 saturated |
+| R9, cost | Reported against USD 500 | USD 543.60 | USD 605.20 |
+
+Value-engineering target: USD 500. Estimated cost of the constructable design: USD 605.20 (USD 105.20 over the target). Footing +USD 65.00 (22 bags instead of 12 at USD 6.50), post +USD 4.60 (2.3 m pro rata), ropes save USD 8.00 (USD 2.00 a metre). Ladder as thrown 4.27 kg. `budget_usd` unchanged at 500.
+
+### Decisions awaiting Amish
+
+None. Nothing new needs Amish.
+
+### Safety concerns
+
+- The 9 mm rope meets the four-times rope factor of R4 only just (4.08). The bought rope must declare at least 18 kN, and the TRL 4 proof load must use wet, knotted rope.
+- The standard footing is checked for granular soil only; soft clay or peat banks need a site pull test. About 550 kg of bagged concrete per footing is a manual handling load at the canal edge: use a second person or ready-mix.
+
+## 2026-10-03: photoreal renders redone after Amish's requirement decisions
+
+Rendered with Blender Cycles on Amish's Mac from `cad/src/product_model.py`; captioned with `.kit/photo_caption.py`; `media/card.png` and `media/social-preview.png` made with `.kit/cards.py`. Views: hero, exploded, detail. image_qc passes and `render.py --check` has no FAIL.

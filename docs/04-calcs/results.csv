@@ -5,29 +5,29 @@ A3,"1.5:1 slope, water 2,000 mm below the coping: bottom rung 2,313 mm below the
 A4,"Deepest water on a 1.5:1 slope with two rungs still at or below the water line: 2,127 mm below the coping"
 A5,"Vertical wall, water 3,000 mm below the coping: bottom rung 1,170 mm below the water line; 4 rungs at or below it; deepest water with two rungs at or below it: 3,835 mm"
 A6,Clear width between rope bushes 298 mm; rung pitch 335 mm; hand clearance behind the float sleeve at a stand-off rung 70 mm
-B1,Side rope cut length 7.95 m each (15.89 m in all) at 68 g/m
+B1,Side rope cut length 7.95 m each (15.89 m in all) at 55 g/m
 B2,  rungs       1.715 kg
 B2,  foam        0.161 kg
 B2,  bushes      0.091 kg
 B2,  caps        0.104 kg
 B2,  blocks      0.420 kg
 B2,  sobolts     0.080 kg
-B2,  ropes       1.081 kg
+B2,  ropes       0.874 kg
 B2,  seizings    0.020 kg
 B2,  links       0.120 kg
 B2,  weight      0.530 kg
 B2,  protectors  0.160 kg
-B3,Ladder as thrown (everything that leaves the box): 4.48 kg against the 4.0 kg target of R2 (+0.48 kg)
+B3,Ladder as thrown (everything that leaves the box): 4.27 kg against the 4.5 kg target of R2 (-0.23 kg; +0.27 kg against the earlier 4.0 kg)
 B4,Saving with 25.4 x 1.65 mm rungs instead: 0.20 kg (rejected: see D2)
-C1,"Net buoyancy per rung with its share of rope: plain rung 0.274 kg, stand-off rung 0.218 kg (target at least 0.15 kg)"
-C2,"Throw weight in water 0.442 kg; bottom three rungs lift 0.765 kg, factor 1.73 (target at least 1.5)"
-C3,Whole ladder in water: 2.89 kg of spare lift; it floats with the weight hanging below
+C1,"Net buoyancy per rung with its share of rope: plain rung 0.277 kg, stand-off rung 0.221 kg (target at least 0.15 kg)"
+C2,"Throw weight in water 0.442 kg; bottom three rungs lift 0.775 kg, factor 1.75 (target at least 1.5)"
+C3,Whole ladder in water: 2.93 kg of spare lift; it floats with the weight hanging below
 D1,"Rung tube 28.6 x 1.65 mm 6061-T6: section modulus 890 mm3; 1.5 kN at mid-span over 320 mm gives 120 N m and 135 MPa, 0.56 of the 240 MPa minimum yield (target at most 0.67)"
 D2,"Lighter 25.4 x 1.65 mm tube: 175 MPa, 0.73 of yield (over the 0.67 limit, so not used)"
 D3,Each rung end puts 750 N through the bush flange onto the knot; nylon flange bearing about 17 MPa on a 2 mm contact band (nylon yields at about 50 MPa)
 D4,"Stand-off block on a 1.5:1 slope: wall force 612 N per block (whole climber on one rung), friction torque 17.4 N m, 610 N across the M5 bolt (two shear planes, capacity about 6 kN each)"
-E1,"One side rope with a stopper knot, wet: 22 x 0.6 x 0.85 = 11.2 kN; both ropes 22.4 kN; factor 5.0 on the 4.5 kN target (target at least 4)"
-E2,Over an unprotected 10 mm coping edge as well: 11.2 kN for both ropes; the edge protectors keep the rope off the edge
+E1,"One 9 mm side rope with a stopper knot, wet: 18 x 0.6 x 0.85 = 9.18 kN; both ropes 18.4 kN; factor 4.08 on the 4.5 kN target (R4 asks for at least 4; Amish's floor for the smaller rope is 3)"
+E2,Over an unprotected 10 mm coping edge as well: 9.2 kN for both ropes; the edge protectors keep the rope off the edge
 E3,"Screw links: working load limit 1,000 kg = 9.8 kN, 2.18 times the 4.5 kN target"
 F1,Design climber 100 kg with a 1.5 dynamic factor: 1.47 kN
 F2,"On the 1.5:1 slope the ropes carry the part along the wall, 0.82 kN (friction on the wall ignored); on a vertical wall the whole 1.47 kN"
@@ -36,11 +36,11 @@ F4,"Upper bound on the anchor (climbing a vertical wall and the full current dra
 G1,"Eye nut M16 working load limit 700 kg in line = 6.87 kN, 1.53 times the target"
 G2,"M16 grade 8.8 bolt: proof load 94 kN; post wall under the 50 mm washer, punching capacity 66 kN"
 G3,"Post 60 x 60 x 3: section modulus 12,380 mm3; 4.5 kN at 250 mm gives 1125 N m and 91 MPa, 0.39 of yield"
-G4,"Footing 400 dia x 1,000 deep, short rigid pile (Broms), drained medium dense granular soil (unit weight 18 kN/m3, 30 deg): ultimate 8.6 kN, factor 1.92 on the target (target at least 1.5)"
-G5,"Same footing in saturated soil (submerged unit weight 8 kN/m3): 3.8 kN, factor 0.85: not enough; a 500 dia x 1,200 deep footing gives 7.2 kN, factor 1.59"
-G6,"Concrete in the standard footing 0.122 m3, about 12 bags of 25 kg"
+G4,"Standard footing at every site, 500 dia x 1,200 deep, short rigid pile (Broms), drained medium dense granular soil (unit weight 18 kN/m3, 30 deg): ultimate 16.1 kN, factor 3.58 on the target (target at least 1.5)"
+G5,"Same footing in saturated soil (submerged unit weight 8 kN/m3): 7.2 kN, factor 1.59 (target at least 1.5); the earlier 400 dia x 1,000 deep footing gave only 3.8 kN, factor 0.85"
+G6,"Concrete in the standard footing 0.232 m3, about 22 bags of 25 kg"
 H1,Deploy time estimate: lift the lid 2 s; take the throw weight and the top of the folded ladder 4 s; throw upstream of the person 4 s; let the ladder pay out down the wall 5 s; total 15 s (target under 30 s; to be timed)
 H2,"UV: ropes, rungs and foam live in an opaque UV-stabilised box and see daylight only when used or inspected"
 H3,Nothing hard is thrown: the throw weight is a soft shot pouch; rung ends are capped and holes bushed; a blunt-tip knife is kept in the lid
-I1,Value-engineering target: USD 500. Estimated cost of the constructable design: USD 543.60 (USD 43.60 over the target)
-I2,"Station (post, footing, anchor, box, decals, knife, consumables) USD 286.20; ladder USD 257.40"
+I1,Value-engineering target: USD 500. Estimated cost of the constructable design: USD 605.20 (USD 105.20 over the target)
+I2,"Station (post, footing, anchor, box, decals, knife, consumables) USD 358.80; ladder USD 246.40"

@@ -4,7 +4,7 @@
 
 ![TRL 3](https://img.shields.io/badge/TRL-3%20of%209-0F766E) ![Hardware: CERN-OHL-S-2.0](https://img.shields.io/badge/hardware-CERN--OHL--S--2.0-111827) ![Software: MIT](https://img.shields.io/badge/software-MIT-111827) [![REUSE compliant](https://github.com/BoujeeEnjinia1701/canalrung/actions/workflows/reuse.yml/badge.svg)](https://github.com/BoujeeEnjinia1701/canalrung/actions/workflows/reuse.yml)
 
-**Area:** Situational field hardware · **TRL:** 3 of 9 (proof of concept on paper; constructable design) · **Value-engineering target:** USD 500; estimated cost USD 543.60 (USD 43.60 over the target) · **Difficulty:** 2 of 5
+**Area:** Situational field hardware · **TRL:** 3 of 9 (proof of concept on paper; constructable design) · **Value-engineering target:** USD 500; estimated cost USD 605.20 (USD 105.20 over the target) · **Difficulty:** 2 of 5
 
 CONCEPT, NOT FOR FABRICATION. A research prototype design published as an open engineering reference, not certified life-saving equipment.
 
@@ -60,7 +60,7 @@ A bank station (a galvanised post in a concrete footing, with a forged eye nut n
 
 ![Concept render](media/hero.png)
 
-Key numbers on paper (CNR-CAL-001): a 4.02 m rung section reaches the water 2.1 m down a 1.5:1 wall or 3.8 m down a vertical wall; every rung floats with 0.22 to 0.27 kg to spare; a rung under 1.5 kN reaches 0.56 of yield and the two ropes hold 22.4 kN wet with their knots; the anchor holds 4.5 kN in drained soil. The ladder as thrown weighs 4.48 kg, over its 4.0 kg target (R2 not met).
+Key numbers on paper (CNR-CAL-001): a 4.02 m rung section reaches the water 2.1 m down a 1.5:1 wall or 3.8 m down a vertical wall; every rung floats with 0.22 to 0.28 kg to spare; a rung under 1.5 kN reaches 0.56 of yield and the two 9 mm ropes hold 18.4 kN wet with their knots; the anchor, on a 500 x 1,200 mm footing at every site, holds 4.5 kN in drained or saturated soil. The ladder as thrown weighs 4.27 kg, inside its 4.5 kg target.
 
 Design precis: [docs/02-concept.md](docs/02-concept.md) · Requirements: [docs/03-requirements.md](docs/03-requirements.md) · Calculations: [docs/04-calcs/01-sizing.md](docs/04-calcs/01-sizing.md) · Prototype build plan: [docs/05-build-plan.md](docs/05-build-plan.md) · Design decisions: [docs/06-design-decisions.md](docs/06-design-decisions.md) · General arrangement: [CNR-DWG-001](cad/drawings/CNR-DWG-001.pdf) · 3D viewer: [media/viewer.html](media/viewer.html)
 
@@ -70,7 +70,7 @@ Design precis: [docs/02-concept.md](docs/02-concept.md) · Requirements: [docs/0
 - Mounting plate, square U-bolts and a 70 L storage box with decals, tamper tag and rescue knife
 - 13 aluminium rungs with foam float sleeves, nylon rope bushes and end caps
 - HDPE wall stand-off blocks on rungs 3, 6, 9 and 12
-- Two 10.5 mm EN 1891 kernmantle side ropes, a stopper knot under every rung end and a seizing over it
+- Two 9 mm EN 1891 type B kernmantle side ropes, a stopper knot under every rung end and a seizing over it
 - Screw links, a soft 0.5 kg throw weight and edge protector sleeves
 
 ## Building the prototype

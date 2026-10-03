@@ -38,7 +38,7 @@ def out_of_wall(k):
     return tuple(k * c for c in _n)
 
 
-EXPLODE = {"post": (0, 0, 0), "crush": (0, -260, 0), "footing": (0, 0, -650), "bolt": (320, 0, 0),
+EXPLODE = {"post": (0, 0, 0), "crush": (0, -260, 0), "footing": (0, 0, -850), "bolt": (320, 0, 0),
            "eyenut": (-260, 0, -120), "plate": (-180, 0, 0), "ubolts": (300, 0, 120), "box": (-520, 0, 420),
            "boxfix": (-330, 0, 200), "cap": (0, 0, 300), "decals": (-600, 0, 560), "knife": (-520, 0, 900),
            "rungs": (0, 0, 0), "bushes": out_of_wall(900), "caps": out_of_wall(650), "foam": out_of_wall(380),
@@ -107,19 +107,20 @@ def blueprint():
     light = list(M.simple_parts().values())       # small parts do not show at this scale
     views = project_views(Compound(light), MD / "_views")
     views["iso"] = project_views(Compound(light + [M.site()["lining"]]), MD / "_views_fig")["iso"]
-    s = Sheet(project=PROJECT, title=TITLE, dwg_no=DWG, rev="P1", author="Amish Chadha", date=DATE, theme="blueprint",
+    s = Sheet(project=PROJECT, title=TITLE, dwg_no=DWG, rev="P2", author="Amish Chadha", date=DATE, theme="blueprint",
               material="Massing model for concept communication",
-              revisions=[("P1", "Concept sheet from the constructable model", DATE, "AC")])
+              revisions=[("P1", "Concept sheet from the constructable model", DATE, "AC"),
+                         ("P2", "CNR-DDR-003: 9 mm ropes; 500 x 1,200 footing", DATE, "AC")])
     s.add_ortho(views)
     s.add_svg(views["iso"], 276, 37, 140, 113, label="Isometric view",
               sublabel="Not to scale; seen from the bank side, front right and above; grey is the site")
     s.add_notes("Key figures", [
         "13 floating rungs at 335 mm pitch; 4.02 m rung section",
         "Reaches water 2.1 m down a 1.5:1 wall, 3.8 m down a vertical wall",
-        "Each rung floats with 0.22 to 0.27 kg to spare; soft 0.5 kg throw weight",
-        "Rung: 0.56 of yield at 1.5 kN; ropes 22.4 kN wet with knots",
-        "Anchor eye nut on a post in a 400 x 1,000 footing; 4.5 kN target",
-        f"Ladder as thrown {m['total']:.1f} kg (4.0 kg target); about 15 s to deploy (est.)",
+        "Each rung floats with 0.22 to 0.28 kg to spare; soft 0.5 kg throw weight",
+        "Rung: 0.56 of yield at 1.5 kN; 9 mm ropes 18.4 kN wet with knots",
+        "Anchor eye nut on a post in a 500 x 1,200 footing; 4.5 kN target",
+        f"Ladder as thrown {m['total']:.1f} kg (4.5 kg target); about 15 s to deploy (est.)",
         "Never enter the water: throw, anchor and call for help"], x=276, y=168, width=140)
     s.save(MD / "concept-blueprint")
     shutil.rmtree(MD / "_views", ignore_errors=True)

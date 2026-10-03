@@ -34,7 +34,7 @@ RUNG_PROOF_N = 1500.0    # R4 rung target, point load at mid-span
 SYSTEM_N = 4500.0        # R4 and R6 anchor target
 FY_AL = 240.0            # MPa, 6061-T6 drawn tube, minimum yield
 FY_POST = 235.0          # MPa, S235 hollow section
-ROPE_MBS = 22.0          # kN, EN 1891 type A minimum
+ROPE_MBS = 18.0          # kN, EN 1891 type B minimum (9 mm rope, decision 4A of 2026-10-03)
 KNOT_EFF = 0.60          # overhand stopper knot, strength retained (literature range 0.55 to 0.65)
 WET_EFF = 0.85           # wet polyamide; polyester retains more
 EDGE_EFF = 0.50          # rope over a 10 mm coping edge without protection, worst case
@@ -68,8 +68,9 @@ rope_cut = M.rope_cut_length()
 out("B1", f"Side rope cut length {rope_cut / 1000:.2f} m each ({2 * rope_cut / 1000:.2f} m in all) at {M.ROPE_KG_M * 1000:.0f} g/m")
 for k_ in ("rungs", "foam", "bushes", "caps", "blocks", "sobolts", "ropes", "seizings", "links", "weight", "protectors"):
     out("B2", f"  {k_:11s} {m[k_]:.3f} kg")
-out("B3", f"Ladder as thrown (everything that leaves the box): {m['total']:.2f} kg against the 4.0 kg target of R2 "
-          f"({m['total'] - 4.0:+.2f} kg)")
+MASS_TGT = 4.5          # kg, R2 as restated by Amish on 2026-10-03 (decision 4A fallback)
+out("B3", f"Ladder as thrown (everything that leaves the box): {m['total']:.2f} kg against the {MASS_TGT} kg target of R2 "
+          f"({m['total'] - MASS_TGT:+.2f} kg; {m['total'] - 4.0:+.2f} kg against the earlier 4.0 kg)")
 alt = m["rungs"] * (math.pi * (25.4 ** 2 - (25.4 - 2 * 1.65) ** 2) / 4) / (math.pi * (P['rung_od'] ** 2 - (P['rung_od'] - 2 * P['rung_wall']) ** 2) / 4)
 out("B4", f"Saving with 25.4 x 1.65 mm rungs instead: {m['rungs'] - alt:.2f} kg (rejected: see D2)")
 
@@ -125,8 +126,8 @@ out("D4", f"Stand-off block on a 1.5:1 slope: wall force {Nn:.0f} N per block (w
 # ------------------------------------------------------------ E. ropes, knots and links (R4)
 per_rope = ROPE_MBS * KNOT_EFF * WET_EFF
 both = 2 * per_rope
-out("E1", f"One side rope with a stopper knot, wet: {ROPE_MBS:.0f} x {KNOT_EFF} x {WET_EFF} = {per_rope:.1f} kN; both ropes {both:.1f} kN; "
-          f"factor {both / (SYSTEM_N / 1000):.1f} on the 4.5 kN target (target at least 4)")
+out("E1", f"One 9 mm side rope with a stopper knot, wet: {ROPE_MBS:.0f} x {KNOT_EFF} x {WET_EFF} = {per_rope:.2f} kN; both ropes {both:.1f} kN; "
+          f"factor {both / (SYSTEM_N / 1000):.2f} on the 4.5 kN target (R4 asks for at least 4; Amish's floor for the smaller rope is 3)")
 out("E2", f"Over an unprotected 10 mm coping edge as well: {both * EDGE_EFF:.1f} kN for both ropes; the edge protectors keep the rope off the edge")
 out("E3", f"Screw links: working load limit {LINK_WLL:,.0f} kg = {LINK_WLL * G / 1000:.1f} kN, {LINK_WLL * G / SYSTEM_N:.2f} times the 4.5 kN target")
 
@@ -162,12 +163,12 @@ def broms(gamma, Dm, Lm, e, phi):
 
 Df, Lf, e = P["footing_d"] / 1000, P["footing_depth"] / 1000, P["eye_z"] / 1000
 Hu = broms(SOIL["gamma"], Df, Lf, e, SOIL["phi"])
-out("G4", f"Footing {P['footing_d']:.0f} dia x {P['footing_depth']:,.0f} deep, short rigid pile (Broms), drained medium dense granular soil "
+out("G4", f"Standard footing at every site, {P['footing_d']:.0f} dia x {P['footing_depth']:,.0f} deep, short rigid pile (Broms), drained medium dense granular soil "
           f"(unit weight {SOIL['gamma']:.0f} kN/m3, 30 deg): ultimate {Hu:.1f} kN, factor {Hu / (SYSTEM_N / 1000):.2f} on the target (target at least 1.5)")
 Hs = broms(SOIL["gamma_sat"], Df, Lf, e, SOIL["phi"])
-Hs2 = broms(SOIL["gamma_sat"], 0.5, 1.2, e, SOIL["phi"])
-out("G5", f"Same footing in saturated soil (submerged unit weight {SOIL['gamma_sat']:.0f} kN/m3): {Hs:.1f} kN, factor {Hs / 4.5:.2f}: not enough; "
-          f"a 500 dia x 1,200 deep footing gives {Hs2:.1f} kN, factor {Hs2 / 4.5:.2f}")
+Hs_old = broms(SOIL["gamma_sat"], 0.4, 1.0, e, SOIL["phi"])
+out("G5", f"Same footing in saturated soil (submerged unit weight {SOIL['gamma_sat']:.0f} kN/m3): {Hs:.1f} kN, factor {Hs / 4.5:.2f} (target at least 1.5); "
+          f"the earlier 400 dia x 1,000 deep footing gave only {Hs_old:.1f} kN, factor {Hs_old / 4.5:.2f}")
 vol = math.pi / 4 * Df ** 2 * Lf - (wp / 1000) ** 2 * P["post_embed"] / 1000
 out("G6", f"Concrete in the standard footing {vol:.3f} m3, about {vol * 2300 / 25 + 0.5:.0f} bags of 25 kg")
 
@@ -193,11 +194,11 @@ print()
 print("Requirement results (CNR-REQ-001)")
 res = [
     ("R1", "met on paper", f"4,020 mm rung section; slopes to {max_slope_drop / 1000:.1f} m, vertical walls to {s[-2] / 1000:.1f} m"),
-    ("R2", "not met (mass)", f"{m['total']:.2f} kg against 4.0 kg; throw accuracy needs trials"),
+    ("R2", "met on paper (mass, restated 4.5 kg); throw accuracy needs trials", f"{m['total']:.2f} kg against {MASS_TGT} kg"),
     ("R3", "met on paper", f"{nb_plain:.2f} and {nb_so:.2f} kg per rung; bottom three rungs {bottom3 / w_sub:.1f} x the weight"),
     ("R4", "met on paper", f"rung {sig / FY_AL:.2f} of yield; ropes {both:.1f} kN wet with knots"),
     ("R5", "met by design; climb time needs trials", f"{D['clear_w']:.0f} mm clear, {P['pitch']:.0f} mm pitch, {D['wall_to_foam']:.0f} mm hand room"),
-    ("R6", "met on paper in drained soil", f"footing factor {Hu / 4.5:.2f}; eye nut {EYE_WLL * G / SYSTEM_N:.2f}"),
+    ("R6", "met on paper in drained and saturated soil", f"footing factor {Hu / 4.5:.2f} drained, {Hs / 4.5:.2f} saturated; eye nut {EYE_WLL * G / SYSTEM_N:.2f}"),
     ("R7", "not verifiable at TRL 3", f"estimate {sum(b for _, b in steps)} s"),
     ("R8", "met by design; to confirm by test", "stored in an opaque box"),
     ("R9", "over the value-engineering target", f"USD {cost:,.2f} against USD {tgt:,.0f}"),

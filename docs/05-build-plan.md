@@ -3,7 +3,7 @@ doc_id: CNR-BLD-001
 title: CanalRung prototype build plan
 project: CanalRung
 doc_type: Build plan
-version: "0.1"
+version: "0.2"
 status: Draft
 date: '2026-10-03'
 author: Amish Chadha
@@ -13,6 +13,10 @@ revisions:
     date: '2026-10-03'
     author: Amish Chadha
     change: First build plan; design made constructable (CNR-DDR-002)
+  - version: "0.2"
+    date: '2026-10-03'
+    author: Amish Chadha
+    change: "Amish's decisions of 2026-10-03 (CNR-DDR-003): 9 mm ropes; the 500 x 1,200 footing and 2,300 post at every site"
 ---
 
 # CanalRung prototype build plan
@@ -25,7 +29,7 @@ revisions:
 
 *Figure 1. Every component pulled apart and numbered in build order. The ladder is drawn with 4 of its 13 rungs so the parts stay readable.*
 
-The prototype is one CanalRung station and its ladder. The station is a galvanised steel post set in a concrete footing a metre back from the canal edge, with a forged eye nut near its foot that anchors the ladder and a bright plastic box clamped to it that holds the ladder. The ladder is 13 aluminium tube rungs, each in an orange foam float sleeve, hung on two red climbing-grade ropes by a knot under each rung end, with plastic stand-off blocks on four rungs, a soft weight at the bottom and a screw link at each end. Figure 1 shows the 23 components in the order you make or fit them. Nine are made in a small workshop or on site: the post, the footing, the crush tube, the mounting plate, the drilled box, the rungs, the float sleeves, the stand-off blocks and the ropes. The rest are bought and fitted. The work is cutting and drilling steel and aluminium tube, cutting aluminium sheet, plastic and foam, digging and pouring a small footing, and rope work: cutting, sealing, tying knots and seizing. The parts cost about USD 544, from the bill of materials.
+The prototype is one CanalRung station and its ladder. The station is a galvanised steel post set in a concrete footing a metre back from the canal edge, with a forged eye nut near its foot that anchors the ladder and a bright plastic box clamped to it that holds the ladder. The ladder is 13 aluminium tube rungs, each in an orange foam float sleeve, hung on two red climbing-grade ropes by a knot under each rung end, with plastic stand-off blocks on four rungs, a soft weight at the bottom and a screw link at each end. Figure 1 shows the 23 components in the order you make or fit them. Nine are made in a small workshop or on site: the post, the footing, the crush tube, the mounting plate, the drilled box, the rungs, the float sleeves, the stand-off blocks and the ropes. The rest are bought and fitted. The work is cutting and drilling steel and aluminium tube, cutting aluminium sheet, plastic and foam, digging and pouring a small footing, and rope work: cutting, sealing, tying knots and seizing. The parts cost about USD 605, from the bill of materials.
 
 > **Safety:** CanalRung is rescue and rope equipment that a person's life will depend on. Build it carefully, inspect every knot, and never let anyone climb it, stand on it or test it in water until section 6 says so. Work at the canal edge only with a second person watching and a life jacket on; dig only after underground services have been located. Cut tube and sheet edges are sharp: deburr everything and wear gloves. Heat sealing rope ends gives off fumes; do it in a ventilated space.
 
@@ -46,7 +50,7 @@ The concept showed what CanalRung does; some of its parts could not be made or f
 | Rope ends | No termination | A loop at each end, held in rated screw links at the eye nut and at the throw weight (Figures 17 and 18) | Rated, replaceable connections |
 | Canal edge | Ropes on the concrete edge | Two sleeves on the ropes where they cross the edge (Figure 19) | Rope over a sharp edge loses strength |
 | Box lid | Could not close over the anchored ropes | A notch in the front rim and four drain holes (Figure 8) | The ladder stays linked to the anchor while stored |
-| Footing | No size | 400 mm across and 1,000 mm deep; 500 by 1,200 mm on wet or soft banks (Figure 4) | Holds the anchor load in the bank soil |
+| Footing | No size | 500 mm across and 1,200 mm deep at every site, wet or dry (Figure 4) | Holds the anchor load in wet or dry bank soil, so one size fits every site |
 
 ## 3. Making the components
 
@@ -58,19 +62,19 @@ Make and check each component before the assembly step that needs it. Sizes are 
 
 *Figure 2. Post making sketch (CNR-DWG-101).*
 
-**What it is and what it is made from.** The upright that holds the box and carries the ladder anchor. Hot-dip galvanised square steel tube 60 x 60 x 3 mm, grade S235 or better, 2,100 long (2,300 long for a wet or soft bank).
+**What it is and what it is made from.** The upright that holds the box and carries the ladder anchor. Hot-dip galvanised square steel tube 60 x 60 x 3 mm, grade S235 or better, 2,300 long.
 
 **How to make it.**
 
-1. Cut the tube to 2,100, square, and file the burr off both ends.
+1. Cut the tube to 2,300, square, and file the burr off both ends.
 2. Choose one face as the canal side and mark it along its length.
-3. Measure 1,150 up from the bottom end and mark the centre of the canal-side face and of the back face at that height. This puts the anchor 250 above the ground.
+3. Measure 1,350 up from the bottom end and mark the centre of the canal-side face and of the back face at that height. This puts the anchor 250 above the ground.
 4. Clamp the post in a drill press or use a drill guide so both holes share one axis square to the faces. Drill a 6 pilot right through both walls.
 5. Open the hole in the canal-side wall to 17.5 (for the bolt) and the hole in the back wall to 21.5 (for the crush tube).
 6. Deburr both holes inside and out. Paint the holes and both cut ends with cold galvanising paint.
-7. Mark a ground line all round, 900 up from the bottom end.
+7. Mark a ground line all round, 1,100 up from the bottom end.
 
-**How it fits the parts next to it.** The bottom 900 sits in the concrete footing with 100 of concrete under it (Figure 4). The crush tube goes in through the back hole and the anchor bolt through both (Figure 6). The mounting plate sits flat on the canal-side face with its bottom edge 480 above the ground line, held by two U-bolts round the back of the post (Figure 9). The cap closes the top.
+**How it fits the parts next to it.** The bottom 1,100 sits in the concrete footing with 100 of concrete under it (Figure 4). The crush tube goes in through the back hole and the anchor bolt through both (Figure 6). The mounting plate sits flat on the canal-side face with its bottom edge 480 above the ground line, held by two U-bolts round the back of the post (Figure 9). The cap closes the top.
 
 **Check before moving on.** Push a 16 rod through both holes: it must pass straight through without forcing. The 21.3 crush tube must slide into the back hole.
 
@@ -80,12 +84,12 @@ Make and check each component before the assembly step that needs it. Sizes are 
 
 *Figure 3. Footing making sketch (CNR-DWG-103).*
 
-**What it is and what it is made from.** The concrete that holds the post in the bank against the pull of a climber. About 0.12 m3 of 25 MPa concrete, about 12 bags of 25 kg premix, in a hole 400 across and 1,000 deep. On a wet or soft bank: 500 across and 1,200 deep, with the 2,300 post.
+**What it is and what it is made from.** The concrete that holds the post in the bank against the pull of a climber. About 0.23 m3 of 25 MPa concrete, about 22 bags of 25 kg premix, in a hole 500 across and 1,200 deep. This one size is used at every site, whether the bank is dry or wet.
 
 **How to make it.**
 
 1. Choose the spot with the canal operator: 1,000 from the canal edge to the post centre, on level bank, clear of the lining's joints, drains and any buried services (have them located first).
-2. Dig or auger the hole 400 across and 1,000 deep, with straight sides. Keep the spoil away from the canal edge.
+2. Dig or auger the hole 500 across and 1,200 deep, with straight sides. Keep the spoil away from the canal edge.
 3. Pour 100 of concrete into the bottom and level it.
 4. Stand the post on it (assembly step 1), plumb it both ways with a spirit level and brace it.
 5. Fill the hole in layers of about 200, rodding each layer to drive out air, up to 10 to 20 above the ground, and slope the top away from the post so water runs off.
@@ -95,7 +99,7 @@ Make and check each component before the assembly step that needs it. Sizes are 
 
 ![Figure 4. Joint 1: the post in the footing, cut open](05-build-plan/joint-01.png)
 
-*Figure 4. The post stands on 100 of concrete; the concrete wraps its bottom 900 and fills its open end.*
+*Figure 4. The post stands on 100 of concrete; the concrete wraps its bottom 1,100 and fills its open end.*
 
 **Check before moving on.** The post is plumb within 5 in 1,000 in both directions, the ground line is level with the ground, and the concrete is sound with no voids at the top.
 
@@ -163,7 +167,7 @@ One end bears on the inside face of the canal-side wall; the other end is flush 
 
 *Figure 9. Seen from inside the box: the U-bolts go round the back of the post, through the plate and the box back wall; washers and nyloc nuts inside.*
 
-**Check before moving on.** The lid closes and latches with a 10 rope lying in the notch.
+**Check before moving on.** The lid closes and latches with a 9 rope lying in the notch.
 
 ### 3.6 Rungs (make 13)
 
@@ -246,13 +250,13 @@ Each block slides onto the rung from its end, after the foam sleeve, and sits ju
 
 *Figure 16. Side rope making sketch (CNR-DWG-109): the rope finished, laid straight, with its loops and knots.*
 
-**What it is and what it is made from.** The two ropes that carry the rungs and the climber. 10.5 low-stretch kernmantle rope to EN 1891 type A, with a declared breaking strength of at least 22 kN, polyester if available. 16 m in all.
+**What it is and what it is made from.** The two ropes that carry the rungs and the climber. 9 low-stretch kernmantle rope to EN 1891 type B, with a declared breaking strength of at least 18 kN, polyester if available. 16 m in all. It runs freely through the 12 bore of the bushes, and its stopper knot is still far too big to pull through.
 
 **How to make it.**
 
 1. Cut two lengths of 8.0 m: wrap tape round the rope, cut through the tape with a hot knife, and seal each end.
 2. Tie a figure-eight on a bight at one end of each rope, with a loop about 80 long and a tail of at least 60. Dress the knot so its strands lie side by side and pull it tight.
-3. Lay both ropes side by side on a clean floor with the loops together. From the loop's knot measure 1,105 along each rope and mark rung 1. Then mark every 335 for rungs 2 to 13: twelve more marks. Use a fine marker or a wrap of tape; the marks must match on both ropes.
+3. Lay both ropes side by side on a clean floor with the loops together. From the loop's knot measure 1,106 along each rope and mark rung 1. Then mark every 335 for rungs 2 to 13: twelve more marks. Use a fine marker or a wrap of tape; the marks must match on both ropes.
 4. Leave the rest of each rope free; the stopper knots are tied as the rungs go on (assembly step 11).
 
 **How it fits the parts next to it.** Each rope runs down through the bushes at one end of every rung. An overhand stopper knot sits under each bush flange at its mark and carries the rung (Figure 11); a seizing above the bush stops the rung lifting. The top loops go into one screw link on the eye nut (Figure 17); below rung 13 each rope runs 280 to a second figure-eight loop, and both loops and the weight's webbing loop go into the bottom screw link (Figure 18). Where the ropes cross the canal edge they run in sleeves (Figure 19).
@@ -399,7 +403,7 @@ The plan lists them; a TRL 4 test report records them. Each is done only when th
 | Check | Requirement | How | Pass when |
 | --- | --- | --- | --- |
 | Post plumb and firm | R6 | Spirit level on two faces after 7 days; push hard at the top | Plumb within 5 in 1,000; no movement felt |
-| Ladder mass | R2 | Weigh everything that leaves the box on a hanging scale | Recorded; the target is 4.0 kg and the estimate 4.48 kg |
+| Ladder mass | R2 | Weigh everything that leaves the box on a hanging scale | Recorded; the target is 4.5 kg and the estimate 4.27 kg |
 | Knots and rungs level | R4, R5 | Hang the ladder by its top link; sight along the rungs | Every rung level within 10 end to end; pitch 335 within 10 |
 | Rung proof load | R4 | Ladder hung from a test frame (CalRig); 1.5 kN at the middle of each rung for 1 min, by weights | No visible bend afterward (under 1 at the middle); no knot slip over 10 |
 | Ladder system proof load | R4 | 4.5 kN through the top link to the bottom rung, pulled by a calibrated rig | Holds 3 min; no damage to rope, knots, bushes or links |

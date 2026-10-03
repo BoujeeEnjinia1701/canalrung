@@ -118,7 +118,7 @@ def overview():
     rope_only = L["ropes"]
     parts = [
         part("Post", st["post"], "post", (0, 0, 0)),
-        part("Concrete footing", st["footing"], "footing", (0, 0, -500)),
+        part("Concrete footing", st["footing"], "footing", (0, 0, -700)),
         part("Crush tube", st["crush"], "crush", (0, -300, 0)),
         part("Anchor bolt and washers", st["bolt"], "bolt", (380, 0, 0)),
         part("Forged eye nut", st["eyenut"], "eyenut", (-260, 0, -60)),
@@ -186,15 +186,15 @@ def sheets(which=None):
     nb = [part(n, st[k], k) for n, k in (("Footing", "footing"), ("Crush tube", "crush"), ("Bolt", "bolt"), ("Eye nut", "eyenut"),
                                          ("Plate", "plate"), ("U-bolts", "ubolts"), ("Box", "box"), ("Cap", "cap"))]
     jobs[101] = (part("Post", st["post"], "post"), nb, "Post: making sketch", "Hot-dip galvanised steel 60 x 60 x 3 SHS, S235 or better", [
-        "Cut 2,100 long, square; file the burr off both ends.",
-        "Mark one face as the canal side. 1,150 up from the bottom end",
+        "Cut 2,300 long, square; file the burr off both ends.",
+        "Mark one face as the canal side. 1,350 up from the bottom end",
         "(250 above ground when set), on the face centre line:",
         "  canal-side wall: drill 17.5 for the M16 bolt;",
         "  back wall, same axis: drill 21.5 for the crush tube.",
         "Use a drill guide or drill press so both holes share one axis.",
         "Deburr; cold galvanising paint on the holes and cut ends.",
-        "Mark a ground line 900 up from the bottom end.",
-        "Fits: 900 sits in the footing, 100 above its base;",
+        "Mark a ground line 1,100 up from the bottom end.",
+        "Fits: 1,100 sits in the footing, 100 above its base;",
         "plate and box on the canal face; cap on top."], None)
     jobs[102] = (part("Crush tube", st["crush"], "crush"), [part("Post", win(st["post"], 900, 1100, -80, 80, 150, 350), "post"),
                                                            part("Bolt", st["bolt"], "bolt")],
@@ -208,14 +208,14 @@ def sheets(which=None):
         "Check: push it in; it must stop on the far wall with its",
         "end flush (within 0.5) with the back face."], None)
     jobs[103] = (part("Footing", st["footing"], "footing"), [part("Post", st["post"], "post")],
-                 "Concrete footing: making sketch", "25 MPa concrete, about 0.12 m3 (about 12 bags of 25 kg)", [
-        "Hole 400 dia x 1,000 deep, centre 1,000 back from the",
+                 "Concrete footing: making sketch", "25 MPa concrete, about 0.23 m3 (about 22 bags of 25 kg)", [
+        "Hole 500 dia x 1,200 deep, centre 1,000 back from the",
         "coping; keep it clear of the lining and any drains.",
-        "100 of concrete under the post; post bottom 900 down.",
+        "100 of concrete under the post; post bottom 1,100 down.",
         "Crown the top 10 to 20 above ground so water runs off.",
-        "Saturated or soft bank: use 500 dia x 1,200 deep and",
-        "a 2,300 post (calculation note, G5).",
-        "Fits: concrete wraps the bottom 900 of the post and",
+        "This is the standard footing at every site, wet or",
+        "dry bank (calculation note, G4 and G5).",
+        "Fits: concrete wraps the bottom 1,100 of the post and",
         "fills its bottom end.",
         "Check: post plumb in both directions within 5 over 1 m."], None)
     jobs[104] = (part("Plate", st["plate"], "plate"), [part("Post", win(st["post"], 900, 1100, -80, 80, 400, 850), "post"),
@@ -279,7 +279,7 @@ def sheets(which=None):
         "wall, held by one M5 x 50 bolt through block and rung."], M.block_profile_solid())
     rm = rope_marks()
     jobs[109] = (part("Rope", rope_straight(), "ropes"), [], "Side rope: making sketch (make 2)",
-                 "10.5 mm EN 1891 type A low-stretch kernmantle, polyester preferred", [
+                 "9 mm EN 1891 type B low-stretch kernmantle, polyester preferred", [
         f"Cut {rm['cut'] / 1000:.1f} m; tape, cut and heat seal both ends.",
         "Top loop: figure-eight on a bight with a 60 tail, loop",
         "about 80 long (fits the 10 mm screw link).",
@@ -303,9 +303,9 @@ def joints(which=None):
     z = P["eye_z"]
 
     def j1():
-        return bv.joint([part("Post", win(st["post"], 900, 1100, -100, 100, -1000, 300), "post"),
-                         part("Concrete footing", win(st["footing"], 700, 1300, -300, 300, -1000, 0), "footing")],
-                        OUT / "joint-01.png", "Joint 1: post in the concrete footing", "Cut open; 900 of post in 1,000 of concrete", cut="+Y")
+        return bv.joint([part("Post", win(st["post"], 900, 1100, -100, 100, -1200, 300), "post"),
+                         part("Concrete footing", win(st["footing"], 700, 1300, -300, 300, -1200, 0), "footing")],
+                        OUT / "joint-01.png", "Joint 1: post in the concrete footing", "Cut open; 1,100 of post in 1,200 of concrete", cut="+Y")
 
     def j2():
         _, _, tl = M.top_lead()
@@ -406,7 +406,7 @@ def steps(which=None):
     rungs_box, coil, wt = stowed()
     T = {
         1: ([], [S("Post", "post", (0, 0, 700))], "Step 1: stand the post in the hole",
-            "Hole 400 dia x 1,000 deep; post on 100 of concrete, plumb and braced", [part("Footing hole", st["footing"], "footing")]),
+            "Hole 500 dia x 1,200 deep; post on 100 of concrete, plumb and braced", [part("Footing hole", st["footing"], "footing")]),
         2: ([S("Post", "post")], [S("Concrete footing", "footing", (0, 0, -350))], "Step 2: pour the footing",
             "Fill in layers, rod each one; crown the top; leave 7 days before loading", []),
         3: (stn, [S("Crush tube", "crush", (300, 0, 0))], "Step 3: crush tube into the post",
