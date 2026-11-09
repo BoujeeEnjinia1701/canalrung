@@ -1,0 +1,47 @@
+{
+ "level": "D3",
+ "stage": "P3",
+ "hash": "c8952506885e5d2f",
+ "options": {
+  "A": {
+   "title": "Thrown rope ladder on a bank post",
+   "parts": 178,
+   "made_or_bought": 135,
+   "fasteners": 43,
+   "welds": 0,
+   "bare": [],
+   "bare_share": 0.0,
+   "interference": [],
+   "mass_kg": 579.4,
+   "step_files": 135
+  },
+  "B": {
+   "title": "Coping-hook folding ladder",
+   "parts": 92,
+   "made_or_bought": 45,
+   "fasteners": 45,
+   "welds": 2,
+   "bare": [],
+   "bare_share": 0.0,
+   "interference": [],
+   "mass_kg": 224.4,
+   "step_files": 0
+  },
+  "C": {
+   "title": "Post winch with a floating rescue sling",
+   "parts": 46,
+   "made_or_bought": 30,
+   "fasteners": 10,
+   "welds": 6,
+   "bare": [],
+   "bare_share": 0.0,
+   "interference": [],
+   "mass_kg": 854.1,
+   "step_files": 0
+  }
+ },
+ "failures": [],
+ "warnings": [],
+ "passed": true,
+ "seconds": 58.2
+}

@@ -3,9 +3,9 @@ doc_id: CNR-CAL-001
 title: CanalRung sizing calculations
 project: CanalRung
 doc_type: Calculation
-version: "0.3"
+version: "0.4"
 status: Draft
-date: '2026-10-03'
+date: '2026-11-05'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -21,6 +21,10 @@ revisions:
   date: '2026-10-03'
   author: Amish Chadha
   change: "Amish's requirement decisions of 2026-10-03 (4A, 9A; CNR-DDR-003): 9 mm EN 1891 type B ropes (E1, B1 to B3, C1 to C3); R2 measured against the restated 4.5 kg; the 500 x 1,200 mm footing standard at every site (G4 to G6); cost recomputed (I1, I2)"
+- version: "0.4"
+  date: '2026-11-05'
+  author: Amish Chadha
+  change: "Kit 1.9.1: requirement identifiers R1 to R10 mapped to PR-001 to PR-013 of CNR-PRS-001; no calculation changed"
 ---
 
 # CanalRung sizing calculations
@@ -136,3 +140,9 @@ Value-engineering target: USD 500. Estimated cost of the constructable design: U
 | R8 | Met by design; to confirm by test | Stored in an opaque box |
 | R9 | Over the value-engineering target | USD 605.20 against USD 500 |
 | R10 | Met by design | Soft weight, capped ends, knife |
+
+## Requirement identifiers (kit 1.9.1)
+
+CNR-PRS-001 now names the requirements PR-001 to PR-013. The notes above use the earlier R1 to R10, which are PR-001 to PR-010 in the same order, and the tags [A1] to [I2] are unchanged. PR-011 (built and mended locally from stock sections and hand tools, no welding for option A) is evidenced by the bill of materials `bom/bom.csv`, whose 24 lines are catalogue stock and hand-cut parts, and by the build plan BLD-001. PR-012 (pictogram how-to, bright box, numbered tamper tag) is evidenced by BOM lines 8 and 11. PR-013 (honest labelling) is checked by inspection of every drawing, render and the README, and by `python .kit/render.py --check`. None of the three needs a calculation.
+
+The independent review of the STEM check (CNR-STM-001, Independent review) raised points this note does not yet cover: the slope-crest effect on the footing of G4 and G5, the eye nut of G1 loaded 14 to 34 degrees off its axis, the rope of E1 after the ageing allowance of R8 (14.7 kN, factor 3.3), and bush bearing with a foot at one rung end in water-saturated nylon (D3, 32.8 MPa against about 35 MPa). Proposed fixes are open decisions 3 to 5 in CNR-DEC-001; no number in this note was changed.

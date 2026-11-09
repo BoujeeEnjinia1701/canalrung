@@ -3,9 +3,9 @@ doc_id: CNR-PRC-001
 title: CanalRung design precis
 project: CanalRung
 doc_type: Precis
-version: "0.4"
+version: "0.5"
 status: Draft
-date: '2026-10-03'
+date: '2026-11-05'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -25,6 +25,10 @@ revisions:
   date: '2026-10-03'
   author: Amish Chadha
   change: "Amish's requirement decisions of 2026-10-03 (CNR-DDR-003): 9 mm EN 1891 type B ropes; 500 x 1,200 mm footing and 2,300 mm post at every site; R2 restated to 4.5 kg"
+- version: "0.5"
+  date: '2026-11-05'
+  author: Amish Chadha
+  change: "Kit 1.9.1: this precis describes option A, the current design; options B and C and the concept choice (proposed, awaiting Amish) are in CNR-OPT-001 and CNR-DDR-004; the model is rebuilt in detail (178 parts); no dimension changed"
 ---
 
 # CanalRung design precis
@@ -124,6 +128,10 @@ From the preliminary patent, trademark and prior-art screen (not legal advice):
 
 > **Safety:** CanalRung is safety-critical rescue and rope equipment, published as an open engineering reference and never as certified life-saving equipment. Never enter the water to rescue someone: throw, anchor and call the emergency number. The anchor must hold the full climbing load; a bystander holding the top by hand can be pulled in, which is why the top is linked to the post before any emergency. The ladder is not a flotation device or life jacket. Rope in moving water can trap a person or a limb: keep the knife in the lid and cut, do not pull, if anyone is caught. Inspect ropes, knots, seizings, bushes and the eye nut on a set schedule and after every use, and replace on any doubt. The footing must suit the soil at the site; on wet or soft banks use the larger footing. Building and testing the prototype is TRL 4 work with its own safety stops (CNR-BLD-001, section 6).
 
+## Concept options
+
+This precis describes option A, the thrown rope ladder on a bank post. Two other working principles, a rigid coping-hook folding ladder (B) and a post winch with a floating rescue sling (C), are modelled and scored in CNR-OPT-001; option A is recommended and the choice is Proposed, awaiting Amish (CNR-DDR-004).
+
 ## Open decisions
 
-None. All decisions were made under Amish's 2026-10-03 pre-approval; see the design decisions register CNR-DEC-001 (`docs/06-design-decisions.md`), which also lists the facts to confirm when parts are bought.
+The concept choice among options A, B and C is open (Proposed, awaiting Amish). All earlier decisions were made under Amish's 2026-10-03 pre-approval; see the design decisions register CNR-DEC-001 (`docs/06-design-decisions.md`), which also lists the facts to confirm when parts are bought.

@@ -1,13 +1,11 @@
 """CanalRung product appearance model (build123d), TRL 3, constructable design (CNR-DDR-002, CNR-DDR-003).
 
-Finished-product look for photoreal renders, built from cad/src/model.py: every component of
-model.components() is used as it is (post, footing, crush tube, anchor bolt and eye nut, mounting
-plate, U-bolts, storage box and fixings, post cap, decals, knife, the 13 rungs with float sleeves,
-bushes, end caps, stand-off blocks and bolts, ropes with knots and seizings, screw links, throw
-weight and edge protectors), with the ladder thrown and lying down the design wall. Nothing is
-re-dimensioned here. Only context is added: the bank, the concrete lining and the canal water from
-model.site(), a 1.75 m mannequin standing on the bank beside the station, and for the detail view a
-short length of ladder (rungs 2 and 3) with a gripping hand for scale.
+Finished-product look for photoreal renders (kit 1.9). The product is model.components("A"): every part of the
+detailed model (178 parts with bolts, washers, bushes, caps, seizings, links and sleeves), lifted so that ground level
+is Z = 0 (the top of the concrete canal bed; the coping is 3,000 mm above it, the design water line 1,000 mm above it).
+Nothing is re-dimensioned here. Context: the embankment, concrete lining and water of the design canal (parts named
+"(site)", which reach below ground), a 1.75 m mannequin standing on the bank top, and for the detail view a short length
+of ladder (rungs 2 and 3) with a gripping hand for scale.
 APPEARANCE MODEL ONLY: no tolerances, no fabrication detail. CONCEPT, NOT FOR FABRICATION.
 
 Axes as model.py: canal along Y, bank X >= 0, coping edge X = 0, Z up. Groups: "station" and
@@ -30,6 +28,7 @@ TITLE = "CanalRung: throwable floating ladder and bank station for lined canals"
 
 RENDER_VIEWS = [
     {"name": "hero", "groups": ["station", "ladder", "context"], "explode": False, "el": 24, "az": -135,
+     "args": ["--scene=outdoor", "--ground=grass", "--ground-z=0", "--sun=40,-110", "--lens=35"],
      "note": "Product render from the canal side, upstream and above (about 24 deg elevation): the ladder thrown from "
              "its bank station and lying down a 1.5:1 concrete-lined wall on its stand-offs, lowest rungs floating at "
              "the water line 2.0 m below the coping; 1.75 m person standing on the bank for scale"},
@@ -43,22 +42,19 @@ RENDER_VIEWS = [
              "with a stopper knot under each rung end; a hand gripping a rung for scale"},
 ]
 
-COLORS = {"post": "#A1A1AA", "crush": "#6B7280", "footing": "#BDB8B0", "bolt": "#52525B", "eyenut": "#71717A",
-          "plate": "#D4D4D8", "ubolts": "#71717A", "box": "#F2B705", "boxfix": "#52525B", "cap": "#1F2937",
-          "rungs": "#D4D4D8", "bushes": "#F5F5F4", "caps": "#111827", "foam": "#F97316", "blocks": "#1F2937",
-          "sobolts": "#A1A1AA", "ropes": "#DC2626", "seizings": "#111827", "links": "#A1A1AA", "weight": "#16A34A",
-          "protectors": "#0F766E", "decals": "#1D4ED8", "knife": "#111827"}
-MATERIAL = {"post": "metal", "crush": "metal", "footing": "paper", "bolt": "metal", "eyenut": "metal", "plate": "metal",
-            "ubolts": "metal", "box": "plastic", "boxfix": "metal", "cap": "plastic", "rungs": "metal", "bushes": "plastic",
-            "caps": "plastic", "foam": "rubber", "blocks": "plastic", "sobolts": "metal", "ropes": "fabric",
-            "seizings": "fabric", "links": "metal", "weight": "fabric", "protectors": "fabric", "decals": "paper",
-            "knife": "plastic"}
-EXPLODE = {"crush": (0, -260, 0), "footing": (0, 0, -850), "bolt": (320, 0, 0), "eyenut": (-260, 0, -120),
-           "plate": (-180, 0, 0), "ubolts": (300, 0, 120), "box": (-520, 0, 420), "boxfix": (-330, 0, 200),
-           "cap": (0, 0, 300), "decals": (-600, 0, 560), "knife": (-520, 0, 900), "protectors": (0, 0, 450)}
-LADDER = ("rungs", "foam", "blocks", "sobolts", "bushes", "caps", "ropes", "seizings", "links", "weight", "protectors")
-OUT_OF_WALL = {"bushes": 900, "caps": 650, "foam": 380, "blocks": -120, "sobolts": 1150, "ropes": 1450,
-               "seizings": 1750, "links": 2000, "weight": 2300}
+COLORS = {"rungs": "#D4D4D8", "bushes": "#F5F5F4", "caps": "#111827", "foam": "#F97316", "blocks": "#1F2937",
+          "sobolts": "#A1A1AA", "ropes": "#DC2626", "seizings": "#111827"}          # detail view only
+MATERIAL = {"rungs": "metal", "bushes": "plastic", "caps": "plastic", "foam": "rubber", "blocks": "plastic",
+            "sobolts": "metal", "ropes": "fabric", "seizings": "fabric"}
+# photoreal material class of each cad_parts material
+CLASS = {"galvanised": "metal", "aluminium": "metal", "stainless": "metal", "zinc_plated": "metal", "mild_steel": "metal",
+         "hdpe_black": "plastic", "hdpe_natural": "plastic", "safety_red": "plastic", "insulated_white": "rubber",
+         "rope": "fabric", "canvas": "fabric", "concrete": "paper", "label": "paper", "soil": "rubber", "water": "clear"}
+# exploded view offsets by BOM line (mm); ladder lines move out of the wall
+EXPLODE = {2: (0, 0, -850), 3: (0, -260, 0), 4: (320, 0, 0), 5: (-260, 0, -120), 6: (-180, 0, 0), 7: (300, 0, 120),
+           8: (-520, 0, 420), 9: (-330, 0, 200), 10: (0, 0, 300), 11: (-600, 0, 560), 12: (-520, 0, 900),
+           23: (0, 0, 450)}
+OUT_OF_WALL = {14: 380, 15: -120, 16: 1150, 17: 900, 18: 650, 19: 1450, 20: 1750, 21: 2000, 22: 2300}
 
 
 def product_parts(P=M.PARAMS):
@@ -68,19 +64,20 @@ def product_parts(P=M.PARAMS):
     def add(name, shape, color, material, bom, group, explode=(0, 0, 0)):
         out.append(dict(name=name, shape=shape, color=color, material=material, bom=bom, group=group, explode=explode))
 
-    for c in M.components(P):
-        if c.key in OUT_OF_WALL:
-            ex = tuple(OUT_OF_WALL[c.key] * v for v in D["n"])
-        else:
-            ex = EXPLODE.get(c.key, (0, 0, 0))
-        add(c.name, c.shape, COLORS[c.key], MATERIAL[c.key], c.bom, "ladder" if c.key in LADDER else "station", ex)
+    for c in M.components("A", P):
+        if c["kind"] == "context":
+            continue
+        ex = tuple(OUT_OF_WALL.get(c["bom"], 0) * v for v in D["n"]) if c["bom"] in OUT_OF_WALL else EXPLODE.get(c["bom"], (0, 0, 0))
+        add(c["name"], c["shape"], c["color"], CLASS.get(c["material_name"], "plastic"), c["bom"], c["group"],
+            (ex[0], ex[1], ex[2]))
 
-    s = M.site(P, yw=900.0)
-    add("Canal bank, grass (site)", s["bank"], "#7C8B5A", "rubber", None, "context")
-    add("Concrete canal lining (site)", s["lining"], "#CFCBC4", "paper", None, "context")
-    add("Canal water (site)", s["water"], "#3B82F6", "clear", None, "context")
+    from cnr_geom import COPING_Z, site_parts
+    for c in site_parts(P, yw=900.0, far=False, crest=3000.0, outer_run=1.5):
+        nm = c["name"].replace("Embankment, near bank", "Embankment, grass")
+        add(nm, c["shape"], {"soil": "#7C8B5A", "concrete": "#CFCBC4", "water": "#3B82F6"}[c["material_name"]],
+            {"soil": "rubber", "concrete": "paper", "water": "clear"}[c["material_name"]], None, "context")
     from context_parts import mannequin, forearm_hand
-    person = Pos(620, 560, 0) * Rot(0, 0, -90) * mannequin(1750, "stand")
+    person = Pos(620, 560, COPING_Z) * Rot(0, 0, -90) * mannequin(1750, "stand")
     add("Person, 1.75 m mannequin (scale)", person, "#B9B4AC", "clay", None, "context")
 
     # detail: rungs 2 and 3 of the ladder in its own axes (rungs along X, up the ladder Z, wall side +Y)

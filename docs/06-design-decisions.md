@@ -3,9 +3,9 @@ doc_id: CNR-DEC-001
 title: CanalRung design decisions register
 project: CanalRung
 doc_type: Design decisions register
-version: "0.2"
+version: "0.3"
 status: Draft
-date: '2026-10-03'
+date: '2026-11-05'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -17,6 +17,10 @@ revisions:
   date: '2026-10-03'
   author: Amish Chadha
   change: "Amish's requirement decisions 4A and 9A of 2026-10-03 recorded (CNR-DDR-003): 9 mm ropes with R2 restated to 4.5 kg; the 500 x 1,200 mm footing standard at every site"
+- version: "0.3"
+  date: '2026-11-05'
+  author: Amish Chadha
+  change: "Kit 1.9.1: concept choice opened (CNR-DDR-004); two option B fixes recorded as decided under the 2026-10-23 standing instruction"
 ---
 
 # CanalRung design decisions register
@@ -27,7 +31,15 @@ Every design decision still to be made, and every decision made, in one place. E
 
 ## Open decisions
 
-None. All decisions were made under Amish's 2026-10-03 pre-approval, and requirement decisions 4A and 9A were decided by Amish on 2026-10-03 (below).
+| # | Decision needed | Options | Recommendation | Affects in the build | Source |
+| --- | --- | --- | --- | --- | --- |
+| 1 | Which concept option to take forward (Proposed, awaiting Amish) | A thrown rope ladder; B coping-hook folding ladder; C post winch with a floating sling | A (107 of 145 against 92 for C and 88 for B) | Everything: the model, drawing, BOM, calculations and build plan are for A | CNR-DDR-004, CNR-OPT-001 |
+| 2 | Keep USD 605.20 against the USD 500 target as a reported overrun, or take savings (Proposed, awaiting Amish) | Keep and report; take the savings listed under Value engineering | Keep and report; `budget_usd` is not raised | BOM | CNR-CAL-001 I1 |
+| 3 | Footing depth on a slope crest (Proposed, awaiting Amish; independent review finding 1) | Keep 500 x 1,200 mm and rely on a site pull test; deepen to 1,500 mm (saturated 11.6 kN on level ground, factor 2.6; about USD 36 more concrete) | Deepen to 1,500 mm; it changes the standard footing Amish decided in CNR-DDR-003 (9A) and the cost, so it waits for him | Post length (2,300 to 2,600 mm), footing, BOM line 2 and line 1, CAL G4 and G5 | CNR-STM-001 S4, S5 |
+| 4 | Whether the R8 ageing allowance applies to the R4 rope factor (Proposed, awaiting Amish; review finding 2) | Factor 4 for a new rope only (now 4.08, aged 3.3); factor 4 aged, which needs a 22 kN rope (type A, heavier and dearer) | Keep the 9 mm rope: aged 3.3 stays above Amish's floor of three; record that R4 means a new rope | Rope, BOM line 19, CAL E1, mass | CNR-STM-001 S3 |
+| 5 | Eye nut pulled off its axis (Proposed, awaiting Amish; review finding 6) | Keep the M16 eye nut and obtain a rating at the worst rope angle; replace it with a swivel hoist ring | Ask the supplier for the off-axis rating first; if none, a swivel hoist ring | Anchor, BOM lines 4 and 5, CAL G1 | CNR-STM-001 S23 |
+
+All other decisions were made under Amish's 2026-10-03 pre-approval, and requirement decisions 4A and 9A were decided by Amish on 2026-10-03 (below).
 
 ## To confirm when parts are bought
 
@@ -52,7 +64,7 @@ Value-engineering target: USD 500 (a hypothetical control target, not a limit). 
 
 ## Decisions made
 
-Decided by Amish under his pre-approval of 2026-10-03, except the last two rows, which he decided directly on 2026-10-03: "start with the first 14 repos from the list of 29 projects. I pre-approve the batch runs along with any recommendations you come up with. I also accept any cost overruns or variations from the assumed scope cost."
+Decided by Amish under his pre-approval of 2026-10-03, except the two rows dated 2026-10-03 on R2 and R6 (4A and 9A) and the last two rows (2026-11-05, standing instruction of 2026-10-23). He decided 4A and 9A directly on 2026-10-03: "start with the first 14 repos from the list of 29 projects. I pre-approve the batch runs along with any recommendations you come up with. I also accept any cost overruns or variations from the assumed scope cost."
 
 | Date | Decision | Decided by | Record |
 | --- | --- | --- | --- |
@@ -73,3 +85,5 @@ Decided by Amish under his pre-approval of 2026-10-03, except the last two rows,
 | 2026-10-03 | Appearance model and render scenes as modelled, with no appearance deviations from the model | Amish, pre-approval quoted above | `docs/REVIEW.md` |
 | 2026-10-03 | R2 (4A): side ropes downsized to 9 mm EN 1891 type B (18.4 kN wet with knots, 4.08 times 4.5 kN, above the three-times floor); stronger rungs kept; the ladder still exceeds 4.0 kg (4.27 kg), so R2 restated to 4.5 kg. Supersedes the 10.5 mm rope of D4 and the "R2 not met" of D10 | Amish, 2026-10-03: "1A 2A 3A 4A 5A 6A 7A 8A 9A 10A 11A" | CNR-DDR-003 |
 | 2026-10-03 | R6 (9A): the 500 x 1,200 mm footing with a 2,300 mm post is the standard footing at every site (factor 3.58 drained, 1.59 saturated); R6 restated for drained or saturated soil. Supersedes the two footing sizes of P11 | Amish, 2026-10-03: "1A 2A 3A 4A 5A 6A 7A 8A 9A 10A 11A" | CNR-DDR-003 |
+| 2026-11-05 | Option B rung wall raised from 1.6 to 3.2 mm (25.4 mm outside diameter) after a STEM failure (206 MPa, 0.86 of yield) | Standing instruction of 2026-10-23 (fix that keeps the working principle) | CNR-DDR-004, item 2; CNR-STM-001 S13 |
+| 2026-11-05 | Option B stile splice moved onto the middle wall pad with a 200 mm sleeve after a STEM failure (188 MPa bearing) | Standing instruction of 2026-10-23 | CNR-DDR-004, item 3; CNR-STM-001 S16 |

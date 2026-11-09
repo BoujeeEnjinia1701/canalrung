@@ -3,6 +3,7 @@
 Run from the repo root:  python cad/src/concept_media.py [hero|exploded|web|blueprint ...]
 With no argument it draws everything; on a small machine run one picture per process.
 Geometry comes from cad/src/model.py; key figures from docs/04-calcs/sizing.py (CNR-CAL-001).
+Kit 1.9: parts come from model.parts_A (detailed, every fastener); the site is the legacy wall.
 Uses the pieces of .kit/concept.py render_all one at a time, because the ladder lies on a wall
 that faces the canal, so the hero is seen from the canal side rather than the kit's default.
 No cutaway (the joints that matter are shown cut open in the build plan) and no flow diagram
@@ -24,12 +25,8 @@ import model as M  # noqa: E402
 PROJECT, TITLE, DWG, DATE = "CanalRung", "Throwable floating canal ladder and bank station", "CNR-DWG-010", "2026-10-03"
 MD = ROOT / "media"
 
-COLORS = {"post": "#9CA3AF", "crush": "#6B7280", "footing": "#D6D3D1", "bolt": "#374151", "eyenut": "#B45309",
-          "plate": "#CBD5E1", "ubolts": "#4B5563", "box": "#EAB308", "boxfix": "#111827", "cap": "#1F2937",
-          "rungs": "#D1D5DB", "bushes": "#F5F5F4", "caps": "#111827", "foam": "#F97316", "blocks": "#374151",
-          "sobolts": "#6B7280", "ropes": "#DC2626", "seizings": "#111827", "links": "#71717A", "weight": "#16A34A",
-          "protectors": "#0F766E", "decals": "#1D4ED8", "knife": "#111827"}
-
+# kit 1.9: the picture is built from the detailed option A parts (model.parts_A, every bolt and washer), drawn in the
+# design frame (coping edge at Z = 0). Colours come from each part's material; the exploded view moves each BOM line.
 D = M.derived()
 _n = D["n"]
 
@@ -38,17 +35,21 @@ def out_of_wall(k):
     return tuple(k * c for c in _n)
 
 
-EXPLODE = {"post": (0, 0, 0), "crush": (0, -260, 0), "footing": (0, 0, -850), "bolt": (320, 0, 0),
-           "eyenut": (-260, 0, -120), "plate": (-180, 0, 0), "ubolts": (300, 0, 120), "box": (-520, 0, 420),
-           "boxfix": (-330, 0, 200), "cap": (0, 0, 300), "decals": (-600, 0, 560), "knife": (-520, 0, 900),
-           "rungs": (0, 0, 0), "bushes": out_of_wall(900), "caps": out_of_wall(650), "foam": out_of_wall(380),
-           "blocks": out_of_wall(-120), "sobolts": out_of_wall(1150), "ropes": out_of_wall(1450),
-           "seizings": out_of_wall(1750), "links": out_of_wall(2000), "weight": out_of_wall(2300),
-           "protectors": (0, 0, 450)}
+EXPLODE = {1: (0, 0, 0), 2: (0, 0, -850), 3: (0, -260, 0), 4: (320, 0, 0), 5: (-260, 0, -120), 6: (-180, 0, 0),
+           7: (300, 0, 120), 8: (-520, 0, 420), 9: (-330, 0, 200), 10: (0, 0, 300), 11: (-600, 0, 560),
+           12: (-520, 0, 900), 13: (0, 0, 0), 14: out_of_wall(380), 15: out_of_wall(-120), 16: out_of_wall(1150),
+           17: out_of_wall(900), 18: out_of_wall(650), 19: out_of_wall(1450), 20: out_of_wall(1750),
+           21: out_of_wall(2000), 22: out_of_wall(2300), 23: (0, 0, 450)}
 
 
 def parts():
-    return [Part(c.name, c.shape, COLORS[c.key], c.bom, EXPLODE[c.key]) for c in M.components()]
+    out, seen = [], set()
+    for p in M.parts_A(lifted=False):
+        line = p["bom"]
+        first = line not in seen
+        seen.add(line)
+        out.append(Part(p["name"], p["shape"], p["color"], line if first else None, EXPLODE.get(line, (0, 0, 0))))
+    return out
 
 
 def context():
@@ -104,13 +105,14 @@ def blueprint():
     sys.path.insert(0, str(ROOT / "docs" / "04-calcs"))
     from drawing import Sheet, project_views
     m = M.masses()
-    light = list(M.simple_parts().values())       # small parts do not show at this scale
+    light = list(M.simple_parts().values())       # the kit 1.9 model of A; small parts do not show at this scale
     views = project_views(Compound(light), MD / "_views")
     views["iso"] = project_views(Compound(light + [M.site()["lining"]]), MD / "_views_fig")["iso"]
-    s = Sheet(project=PROJECT, title=TITLE, dwg_no=DWG, rev="P2", author="Amish Chadha", date=DATE, theme="blueprint",
-              material="Massing model for concept communication",
+    s = Sheet(project=PROJECT, title=TITLE, dwg_no=DWG, rev="P3", author="Amish Chadha", date=DATE, theme="blueprint",
+              material="Concept sheet drawn from the detailed option A model (cad/src/model.py)",
               revisions=[("P1", "Concept sheet from the constructable model", DATE, "AC"),
-                         ("P2", "CNR-DDR-003: 9 mm ropes; 500 x 1,200 footing", DATE, "AC")])
+                         ("P2", "CNR-DDR-003: 9 mm ropes; 500 x 1,200 footing", DATE, "AC"),
+                         ("P3", "Kit 1.9: drawn from the detailed option A model", "2026-11-05", "AC")])
     s.add_ortho(views)
     s.add_svg(views["iso"], 276, 37, 140, 113, label="Isometric view",
               sublabel="Not to scale; seen from the bank side, front right and above; grey is the site")

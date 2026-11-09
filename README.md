@@ -64,6 +64,16 @@ Key numbers on paper (CNR-CAL-001): a 4.02 m rung section reaches the water 2.1 
 
 Design precis: [docs/02-concept.md](docs/02-concept.md) · Requirements: [docs/03-requirements.md](docs/03-requirements.md) · Calculations: [docs/04-calcs/01-sizing.md](docs/04-calcs/01-sizing.md) · Prototype build plan: [docs/05-build-plan.md](docs/05-build-plan.md) · Design decisions: [docs/06-design-decisions.md](docs/06-design-decisions.md) · General arrangement: [CNR-DWG-001](cad/drawings/CNR-DWG-001.pdf) · 3D viewer: [media/viewer.html](media/viewer.html)
 
+## STEM check
+
+Twenty-three claims are checked (CNR-STM-001): ten are within known science and thirteen are plausible, of which twelve stay open for a test, a datasheet or Amish's decision (the footing on a slope crest, the throw, bush bearing, rope ageing, the aluminium-on-galvanised couple, climbing in cold water, an unrated lanyard and 8 mm rope, handling a rigid ladder, the winch crank, and the eye nut pulled off its axis). Two details of option B failed and were fixed under Amish's standing instruction (a thin rung wall and a mid-span splice); option A, the current design, had no failures. An independent review moved three verdicts to plausible, added a claim on the eye nut, and proposed three fixes to option A that go to Amish.
+
+## Concept options
+
+![Three ways to get a person out of a lined canal, side by side at one scale](media/options.png)
+
+Option A, the thrown rope ladder on a bank post (score 107 of 145), is recommended; option C, a post winch with a floating rescue sling (92), and option B, a rigid coping-hook folding ladder (88), are modelled at the same detail (CNR-OPT-001). The choice is Proposed, awaiting Amish (CNR-DDR-004).
+
 ## Key components
 
 - Post, concrete footing, crush tube, M16 anchor bolt and forged eye nut
@@ -101,9 +111,9 @@ The prototype build plan ([docs/05-build-plan.md](docs/05-build-plan.md)) shows 
 
 | Folder | Contents |
 | --- | --- |
-| `docs/` | Problem, concept, requirements, calculations and design decisions |
-| `cad/src/` | build123d Python source, the source of truth for all geometry |
-| `cad/step/`, `cad/stl/` | Exported models for FreeCAD, other CAD tools and printing |
+| `docs/` | Controlled documents (PRB, STM, OPT, PRC, URS, PRS, RTM, CAL, BLD, DEC, REG, FEA, RSK, MKT, PLN, DDR) and REVIEW.md; `docs/04-calcs/` holds sizing.py and stem_check.py |
+| `cad/src/` | build123d Python source, the source of truth for all geometry: model.py (options A, B and C at detail level D3, kit 1.9), cnr_opts.py (B and C), cnr_geom.py, sheets.py, concept_media.py, product_model.py |
+| `cad/step/`, `cad/stl/` | STEP per part for option A and per assembly for every option; STL of the chosen design |
 | `cad/drawings/` | 2D sketches and dimensioned drawings |
 | `bom/` | Bill of materials |
 | `electronics/` | KiCad schematics and PCB layouts |

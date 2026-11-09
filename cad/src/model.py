@@ -90,31 +90,8 @@ BOM = {
 
 
 # ------------------------------------------------------------------ helpers
-def box(x0, x1, y0, y1, z0, z1):
-    return Pos((x0 + x1) / 2, (y0 + y1) / 2, (z0 + z1) / 2) * Box(x1 - x0, y1 - y0, z1 - z0)
-
-
-def cyl_x(x0, x1, r, y=0.0, z=0.0):
-    return Pos((x0 + x1) / 2, y, z) * Rot(0, 90, 0) * Cylinder(r, abs(x1 - x0))
-
-
-def cyl_y(y0, y1, r, x=0.0, z=0.0):
-    return Pos(x, (y0 + y1) / 2, z) * Rot(90, 0, 0) * Cylinder(r, abs(y1 - y0))
-
-
-def cyl_z(z0, z1, r, x=0.0, y=0.0):
-    return Pos(x, y, (z0 + z1) / 2) * Cylinder(r, abs(z1 - z0))
-
-
-def cyl_between(p0, p1, r):
-    a, b = Vector(*p0), Vector(*p1)
-    v = b - a
-    return Location(Plane(origin=(a + b) * 0.5, z_dir=v.normalized())) * Cylinder(r, v.length)
-
-
-def comp(shapes):
-    shapes = [s for s in shapes if s is not None]
-    return Compound(shapes)
+sys.path[:0] = [str(Path(__file__).resolve().parent), str(ROOT / ".kit")]
+from cnr_geom import box, cyl_x, cyl_y, cyl_z, cyl_between, comp  # noqa: E402
 
 
 def derived(P=PARAMS):
@@ -419,25 +396,35 @@ def knife(P=PARAMS):
 
 
 # ------------------------------------------------------------------ deployed ladder (world frame)
-def top_lead(P=PARAMS):
-    """Both ropes from just above rung 1 over the coping to the top link on the eye nut, and the
-    edge protector sleeves where they cross the coping."""
+def top_lead_side(sx, P=PARAMS):
+    """One rope's top lead from just above rung 1 over the coping to the top link, and its edge protector."""
     D = derived(P)
     r = P["rope_d"] / 2
     lk = (D["eye_cx"] - P["link_major"], 0.0, P["eye_z"])          # top link centre (ring axis Z)
-    ropes, prot = [], []
-    for sx in (-1, 1):
-        a = to_world((sx * P["rope_pitch"] / 2, 0, 40.0), P)
-        e = (-2.0, -sx * 130.0, 5.5)
-        kn = (lk[0] - P["link_major"] - 30, -sx * 8.0, lk[2])
-        end = (lk[0] - P["link_major"] + 2, -sx * 6.0, lk[2])
-        ropes += [cyl_between(a, e, r), Pos(*e) * Sphere(r), cyl_between(e, kn, r), Pos(*kn) * Sphere(P["knot_r"]),
-                  cyl_between(kn, end, r)]
-        for p_from, p_to in ((e, a), (e, kn)):
-            v = Vector(*p_to) - Vector(*p_from)
-            q = Vector(*p_from) + v.normalized() * 250
-            prot.append(cyl_between(p_from, tuple(q), 12.0) - cyl_between(p_from, tuple(q), r))
-    return comp(ropes), comp(prot), link(lk, "Z", P)
+    a = to_world((sx * P["rope_pitch"] / 2, 0, 40.0), P)
+    e = (-2.0, -sx * 130.0, 5.5)
+    kn = (lk[0] - P["link_major"] - 30, -sx * 15.0, lk[2])
+    end = (lk[0] - P["link_major"] + 2, -sx * 12.0, lk[2])
+    pieces = [cyl_between(a, e, r), Pos(*e) * Sphere(r), cyl_between(e, kn, r), Pos(*kn) * Sphere(P["knot_r"]),
+              cyl_between(kn, end, r)]
+    rope = comp(pieces)
+    prot = []
+    for p_from, p_to in ((e, a), (e, kn)):
+        u = (Vector(*p_to) - Vector(*p_from))
+        ln = min(250.0, u.length - 70.0) - 22.0
+        u = u.normalized()
+        mid = Vector(*p_from) + u * (22.0 + ln / 2)
+        tube = cp.round_tube(24.0, 12.0 - r + 0.0, ln)         # wall 12 - 4.5 mm
+        prot.append(Location(Plane(origin=mid, z_dir=u)) * (Pos(0, 0, -ln / 2) * tube))
+    return rope, comp(prot)
+
+
+def top_lead(P=PARAMS):
+    """Both ropes from just above rung 1 over the coping to the top link on the eye nut, and the
+    edge protector sleeves where they cross the coping."""
+    lk = (derived(P)["eye_cx"] - P["link_major"], 0.0, P["eye_z"])
+    sides = [top_lead_side(sx, P) for sx in (-1, 1)]
+    return comp([s[0] for s in sides]), comp([s[1] for s in sides]), link(lk, "Z", P)
 
 
 @dataclass
@@ -470,33 +457,22 @@ def deployed_ladder(P=PARAMS):
 
 
 def simple_parts(P=PARAMS):
-    """Light set for orthographic projection at small scale (general arrangement, concept sheet):
-    the main parts, with the ropes drawn as plain lines of rope and the small parts (bushes, end
-    caps, knots, seizings, fixings, decals, knife) left out because they do not show at 1:50."""
-    st, dl = station(P), deployed_ladder(P)
-    r = P["rope_d"] / 2
-    D = derived(P)
-    lines = []
-    for sx in (-1, 1):
-        x = sx * P["rope_pitch"] / 2
-        a = to_world((x, 0, 40.0), P)
-        b = to_world((x, 0, D["zs"][-1] - 40), P)
-        c = to_world((sx * 8.0, 0, D["zs"][-1] - P["tail"] + P["link_major"]), P)
-        e = (-2.0, -sx * 130.0, 5.5)
-        k = (D["eye_cx"] - 2 * P["link_major"] + 2, -sx * 6.0, P["eye_z"])
-        lines += [cyl_between(a, b, r), cyl_between(b, c, r), cyl_between(a, e, r), cyl_between(e, k, r)]
-    keep = {k: st[k] for k in ("post", "footing", "eyenut", "plate", "box", "cap")}
-    keep.update({k: dl[k] for k in ("rungs", "foam", "blocks", "links", "weight", "protectors")})
-    keep["ropes"] = comp(lines)
-    return keep
+    """The kit 1.9 model of option A for orthographic projection at small scale (general arrangement, concept sheet),
+    in the drawing frame (coping edge at Z = 0): the parts that show at 1:50, grouped by kind. Bushes, end caps,
+    seizings, fixings, decals and the knife are left out because they do not show at that scale."""
+    groups = {"post": "Post,", "footing": "Concrete footing", "eyenut": "Forged eye nut", "plate": "Box mounting plate",
+              "box": "Storage box 70 L", "cap": "Post cap", "rungs": "Rung ", "foam": "Float sleeve", "blocks": "Stand-off block",
+              "links": "Screw link", "weight": "Soft throw weight", "protectors": "Edge protector", "ropes": "Side rope"}
+    ps = parts_A(P, lifted=False)
+    return {k: comp([p["shape"] for p in ps if p["name"].startswith(pre)]) for k, pre in groups.items()}
 
 
 MADE = {"post": "cut, drill, touch up", "crush": "cut", "footing": "cast", "plate": "cut, drill", "box": "bought, drilled",
         "rungs": "cut, drill", "foam": "cut", "blocks": "cut, drill", "ropes": "cut, mark, knot"}
 
 
-def components(P=PARAMS):
-    """Every component of the deployed station, in build order (BOM order)."""
+def legacy_components(P=PARAMS):
+    """Every component of the deployed station as grouped solids, in build order (BOM order); the kit 1.8 form."""
     parts = {**station(P), **deployed_ladder(P)}
     return [Comp(k, BOM[k][0], BOM[k][1], parts[k], MADE.get(k, "buy")) for k in BOM]
 
@@ -627,24 +603,206 @@ def check(P=PARAMS, verbose=True):
     return fails, len(rows)
 
 
-def export(P=PARAMS):
-    step, stl = ROOT / "cad/step", ROOT / "cad/stl"
-    step.mkdir(parents=True, exist_ok=True)
-    stl.mkdir(parents=True, exist_ok=True)
-    cs = components(P)
-    export_step(Compound([c.shape for c in cs]), str(step / "canalrung-assembly.step"))
-    L = ladder_local(P, hang=True)
-    export_step(Compound(list(L.values())), str(step / "canalrung-ladder.step"))
-    st = station(P)
-    singles = {"post": st["post"], "mounting-plate": st["plate"], "rung": rung_tube(3, P),
-               "standoff-block": block_profile_solid(P), "crush-tube": crush_tube(P)}
-    for name, s in singles.items():
-        export_step(s, str(step / f"{name}.step"))
-        export_stl(s, str(stl / f"{name}.stl"), tolerance=0.2, angular_tolerance=0.3)
-    print("exported STEP and STL")
+# ================================================================== kit 1.9 interface (CNR-DDR-004)
+# Every option is modelled to D3 from .kit/cad_parts.py. Part shapes are built where they were drawn (coping at
+# Z = 0) and lifted onto the ground by cnr_geom.COPING_Z when they leave components().
+import cad_parts as cp  # noqa: E402
+from build123d import Sketch, Circle, RectangleRounded, extrude as _extrude  # noqa: E402
+from cnr_geom import COPING_Z, lift, to_yz, site_parts  # noqa: E402
+
+OPTIONS = {"A": "Thrown rope ladder on a bank post",
+           "B": "Coping-hook folding ladder",
+           "C": "Post winch with a floating rescue sling"}
+PRINCIPLES = {
+    "A": "A bystander throws a floating 13-rung rope ladder that is already linked to an anchor eye on a bank post; the person climbs out.",
+    "B": "A rigid folding aluminium ladder is lowered over the coping and hangs by two hooks on the concrete edge; the person climbs out.",
+    "C": "A bystander cranks a hand winch on a bank post that hauls a floating sling, put on by the person, up the wall; nobody climbs.",
+}
+CHOSEN = "A"      # the current design; the choice stays "Proposed, awaiting Amish" (project.yaml, CNR-DDR-004)
+OPTION_VIEWS = {k: {"el": 22, "az": -135, "scale": "person", "ground_z": 0, "keep_context": True,
+                    "args": ["--sun=40,-110"]} for k in OPTIONS}
+ALLOWED_CONTACTS = []
 
 
-if __name__ == "__main__":
+_LIFT = [True]
+
+
+def _mk(name, shape, material, kind, bom=None, group="station", color=None, lifted=True):
+    return cp.part(name, lift(shape) if (lifted and _LIFT[0]) else shape, material, kind=kind, bom=bom, group=group, color=color)
+
+
+def _annulus(od, id_, t):
+    return _extrude(Sketch() + Circle(od / 2) - Circle(id_ / 2), t)
+
+
+def _oriented_x(shape, x, y, z):
+    """A part built along +Z, turned to lie along +X and placed with its start at (x, y, z)."""
+    return Pos(x, y, z) * Rot(0, 90, 0) * shape
+
+
+def _lr(s):
+    return "LR"[s > 0]
+
+
+def _post_anchor(P, add):
+    """Post, footing, crush tube, M16 anchor bolt with washers, forged eye nut and post cap (A's station core; B and C reuse it)."""
+    D = derived(P)
+    x, w, t = P["post_x"], P["post_w"], P["post_t"]
+    z0, ztop = -P["post_embed"], P["post_len"] - P["post_embed"]
+    ez, xf, xb = P["eye_z"], D["post_face"], D["post_back"]
+    post_s = Pos(x, 0, z0) * cp.shs(w, t, P["post_len"])
+    post_s = post_s - cyl_x(x - w, x, 8.75, z=ez) - cyl_x(x, x + w, 10.75, z=ez)
+    add("Post, galvanised SHS 60 x 60 x 3", post_s, "galvanised", "made", 1)
+    solid = Pos(x, 0, z0) * _extrude(RectangleRounded(w, w, 2 * t), P["post_len"])
+    add(f"Concrete footing {P['footing_d']:.0f} dia x {P['footing_depth']:,.0f}", cyl_z(-P["footing_depth"], 0, P["footing_d"] / 2, x=x) - solid, "concrete", "made", 2)
+    a_ = x - w / 2 + t
+    add("Crush tube 21.3 x 2.0 x 57", _oriented_x(cp.round_tube(P["crush_od"], P["crush_t"], xb - a_), a_, 0, ez), "mild_steel", "made", 3)
+    add("M16 x 90 hex bolt (ISO 4017)", Pos(xb + 4, 0, ez) * Rot(0, 90, 0) * cp.hex_bolt(16, P["bolt_len"]), "zinc_plated", "fastener", 4, "station")
+    add("Washer 50 OD x 4 (anchor bolt, back)", _oriented_x(_annulus(50, 17.2, 4), xb, 0, ez), "zinc_plated", "fastener", 4)
+    add("Washer 30 OD x 3 (anchor bolt, front)", _oriented_x(_annulus(30, 17.2, 3), xf - 3, 0, ez), "zinc_plated", "fastener", 4)
+    en = eye_nut(P)
+    add("Forged eye nut M16 (DIN 582)", en, "zinc_plated", "bought", 5)
+    ztc = ztop
+    cap = (Pos(x, 0, ztc) * _extrude(RectangleRounded(w + 1, w + 1, 7), 8) +
+           Pos(x, 0, ztc - 15) * (_extrude(RectangleRounded(w - 2 * t - 0.4, w - 2 * t - 0.4, 3), 15) -
+                                  _extrude(RectangleRounded(w - 2 * t - 4.4, w - 2 * t - 4.4, 2), 15)))
+    add("Post cap", cap, "hdpe_black", "bought", 10)
+
+
+def parts_A(P=PARAMS, lifted=True):
+    """Option A in full: the bank station and the thrown ladder, as cad_parts dicts (BOM lines of bom/bom.csv).
+    lifted=False leaves them in the drawing frame (coping edge at Z = 0), for the general arrangement sheet."""
+    _LIFT[0] = lifted
+    try:
+        return _parts_A(P)
+    finally:
+        _LIFT[0] = True
+
+
+def _parts_A(P):
+    D = derived(P)
+    out = []
+    add = lambda *a, **k: out.append(_mk(*a, **k))  # noqa: E731
+    _post_anchor(P, add)
+    x, w, t = P["post_x"], P["post_w"], P["post_t"]
+    ez, xf, xb = P["eye_z"], D["post_face"], D["post_back"]
+    # ---- mounting plate, U-bolts, box
+    pt, pw, ph = P["plate"]
+    holes = [(y, zz - (P["plate_z0"] + ph / 2), 9.0) for zz in P["ubolt_z"] for y in (-34.0, 34.0)]
+    plate = Pos(xf - pt, 0, P["plate_z0"] + ph / 2) * to_yz(cp.sheet(pw, ph, pt, holes=holes, r_corner=8.0))
+    add("Box mounting plate, aluminium 4 mm", plate, "aluminium", "made", 6)
+    xr, r = xb + P["ubolt_d"] / 2, P["ubolt_d"] / 2
+    for i, zz in enumerate(P["ubolt_z"], 1):
+        u = comp([cyl_x(xr - P["ubolt_leg"], xr, r, y=y, z=zz) for y in (-34.0, 34.0)] +
+                 [Pos(xr, y, zz) * Sphere(r) for y in (-34.0, 34.0)] + [cyl_y(-34, 34, r, x=xr, z=zz)])
+        add(f"Square U-bolt M8 {i}", u, "zinc_plated", "bought", 7)
+    dx, wy, hz = P["box"]
+    bt, bz0 = P["box_t"], P["box_z0"]
+    bxb = xf - pt
+    bxf = bxb - dx
+    cxm = (bxf + bxb) / 2
+    body = Pos(cxm, 0, bz0) * _extrude(RectangleRounded(dx, wy, 25), hz)
+    body = body - Pos(cxm, 0, bz0 + bt) * _extrude(RectangleRounded(dx - 2 * bt, wy - 2 * bt, 21), hz)
+    nw, nd = P["notch"]
+    body -= box(bxf - 1, bxf + bt + 1, -nw / 2, nw / 2, bz0 + hz - nd, bz0 + hz + 1)
+    for zz in P["ubolt_z"]:
+        for y in (-34.0, 34.0):
+            body -= cyl_x(bxb - bt - 1, bxb + 1, 4.5, y=y, z=zz)
+    for xx in (bxf + 40, bxb - 40):
+        for y in (-wy / 2 + 40, wy / 2 - 40):
+            body -= cyl_z(bz0 - 1, bz0 + bt + 1, 4.0, x=xx, y=y)
+    add("Storage box 70 L, body", body, "hdpe_natural", "bought", 8, color="#F2B705")
+    lt, rim = P["lid_t"], 6.0
+    lcx = cxm - 2.5
+    lid = Pos(lcx, 0, bz0 + hz) * _extrude(RectangleRounded(dx + 5, wy + 10, 28), lt)
+    lid = lid - Pos(lcx, 0, bz0 + hz + 4) * _extrude(RectangleRounded(dx + 5 - 2 * rim, wy + 10 - 2 * rim, 22), lt)
+    add("Storage box 70 L, lid", lid, "hdpe_natural", "bought", 8, color="#F2B705")
+    for y in (-110.0, 110.0):
+        lat = Pos(bxf - 4, y, bz0 + hz - 25) * to_yz(cp.sheet(40, 30, 4, r_corner=5.0))
+        add(f"Lid clip latch {'+-'[y < 0]}", lat, "hdpe_black", "bought", 8)
+    for i, zz in enumerate(P["ubolt_z"], 1):
+        for j, y in enumerate((-34.0, 34.0), 1):
+            xi = bxb - bt
+            add(f"Fender washer M8 ({i}{j})", _oriented_x(_annulus(30, 8.4, 1.5), xi - 1.5, y, zz), "stainless", "fastener", 9)
+            add(f"Nyloc nut M8 ({i}{j})", _oriented_x(cp.hex_nut(8), xi - 1.5 - 6.8, y, zz), "stainless", "fastener", 9)
+    top = bz0 + hz
+    add("Decal, lid how-to", Pos(bxf + 200, 0, top + 4) * cp.sheet(320, 460, 0.5, r_corner=6.0), "label", "bought", 11)
+    add("Decal, front warning", Pos(bxf - 0.5, 0, bz0 + 215) * to_yz(cp.sheet(500, 150, 0.5, r_corner=6.0)), "label", "bought", 11)
+    add("Tamper tag", Pos(bxf - 0.5, 215, top - 25) * to_yz(cp.sheet(30, 30, 0.5, r_corner=4.0)), "safety_red", "bought", 11)
+    blade = Pos(bxf + 240, 270, top - 4) * _extrude(Polygon((0, -10), (60, -10), (95, 0), (60, 8), (0, 8), align=None), 3)
+    handle = cp.break_edges(Pos(bxf + 130, 270, top - 9) * Box(110, 22, 16), 3)
+    add("Rescue knife (blunt tip) in sheath", comp([blade, handle]), "safety_red", "bought", 12)
+    # ---- ladder (local frame, then to the wall)
+    loc = ladder_frame(P)
+    ks = range(1, P["n_rungs"] + 1)
+    for k in ks:
+        add(f"Rung {k}, tube 28.6 x 1.65 x 360", loc * rung_tube(k, P), "aluminium", "made", 13, "ladder")
+    for k in ks:
+        add(f"Float sleeve {k}", loc * foam(k, P), "insulated_white", "made", 14, "ladder", color="#F97316")
+    for k in P["so_rungs"]:
+        for s_ in (-1, 1):
+            add(f"Stand-off block {k}{_lr(s_)}", loc * block(k, s_, P), "hdpe_black", "made", 15, "ladder")
+    for k in P["so_rungs"]:
+        for s_ in (-1, 1):
+            zk = D["zs"][k - 1] + P["so_h"] / 2
+            for nm, shp in cp.hex_bolt_set(5, P["so_h"]):
+                add(f"{nm} {k}{_lr(s_)}", loc * (Pos(s_ * P["so_bolt_x"], 0, zk) * shp), "stainless", "fastener", 16, "ladder")
+    for k in ks:
+        for s_ in (-1, 1):
+            add(f"Rope bush {k}{_lr(s_)}", loc * bush(k, s_, P), "hdpe_natural", "bought", 17, "ladder", color="#F5F5F4")
+    for k in ks:
+        for s_ in (-1, 1):
+            add(f"Rung end cap {k}{_lr(s_)}", loc * end_cap(k, s_, P), "hdpe_black", "bought", 18, "ladder")
+    ropes = {}
+    for s_ in (-1, 1):
+        top_z = D["ro"] + P["bush_len"] + P["seize_len"] + 10
+        lead, prot = top_lead_side(s_, P)
+        ropes[s_] = comp([loc * rope_local(s_, top_z, P, hang=False), lead])
+        add(f"Side rope {_lr(s_)}, 9 mm EN 1891 type B", ropes[s_], "rope", "made", 19, "ladder", color="#DC2626")
+    for k in ks:
+        for s_ in (-1, 1):
+            add(f"Seizing {k}{_lr(s_)}", loc * seizing(k, s_, P), "rope", "bought", 20, "ladder", color="#111827")
+    lk = (D["eye_cx"] - P["link_major"], 0.0, P["eye_z"])
+    wt = loc * throw_weight(P)
+    add("Screw link, top (on the eye nut)", screw_link(lk, "Z", P) - ropes[-1] - ropes[1], "zinc_plated", "bought", 21, "ladder")
+    add("Screw link, bottom (to the throw weight)", loc * screw_link((0, 0, D["zs"][-1] - P["tail"]), "Y", P) - ropes[-1] - ropes[1] - wt, "zinc_plated", "bought", 21, "ladder")
+    add("Soft throw weight 0.5 kg", wt, "canvas", "bought", 22, "ladder", color="#16A34A")
+    for s_ in (-1, 1):
+        add(f"Edge protector sleeve {_lr(s_)}", top_lead_side(s_, P)[1], "canvas", "bought", 23, "ladder", color="#0F766E")
+    return out
+
+
+def screw_link(center, axis, P=PARAMS):
+    """Screw link: the 10 mm wire ring of link() with its threaded barrel (gate) on the side away from the other link."""
+    ring = link(center, axis, P)
+    cx, cy, cz = center
+    if axis == "Z":
+        b = cyl_y(cy - 14, cy + 14, 7.0, x=cx - P["link_major"], z=cz)
+    else:
+        b = cyl_z(cz - 14, cz + 14, 7.0, x=cx - P["link_major"], y=cy) if axis == "Y" else cyl_z(cz - 14, cz + 14, 7.0, x=cx, y=cy - P["link_major"])
+    return ring + b
+
+
+def site_context(P=PARAMS):
+    return site_parts(P, yw=450.0, far=False, crest=1800.0, outer_run=0.0)
+
+
+def components(option="A", P=PARAMS):
+    """The parts of one concept option as cad_parts.part() dicts, standing on the ground (Z = 0), canal context included."""
+    if option == "A":
+        parts = parts_A(P)
+    else:
+        import cnr_opts
+        parts = cnr_opts.parts(option, P)
+    return parts + site_context(P)
+
+
+def check_all():
+    f, n = check()
+    return f, n
+
+
+def main():
     if "--check" in sys.argv:
         f, n = check()
         sys.exit(1 if f else 0)
@@ -654,4 +812,8 @@ if __name__ == "__main__":
     for k, v in m.items():
         print(f"  {k:12s} {v:6.3f} kg")
     check()
-    export()
+    print("STEP files and the fidelity report: python .kit/cad_check.py --export")
+
+
+if __name__ == "__main__":
+    main()
